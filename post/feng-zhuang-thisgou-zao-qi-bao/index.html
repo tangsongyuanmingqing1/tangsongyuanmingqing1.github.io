@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>唐宋</title>
+<title>封装, this,构造器,包 | 唐宋</title>
 <meta name="description" content="&lt;img src=&#34;https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1576067917477&amp;di=981af9e2e885994371221c478cfd625d&amp;imgtype=jpg&amp;src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1205038546%2C1747959657%26fm%3D214%26gp%3D0.jpg&#34; /&gt;">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -23,6 +23,7 @@
 
   </head>
   <body>
+  
     <nav class="navbar border fixed split-nav">
   <div class="nav-brand">
     <h3><a href="https://tangsongyuanmingqing1.github.io">唐宋</a></h3>
@@ -76,235 +77,146 @@
   </div>
 </nav>
 
-
     <div id="top" class="row site">
       <div class="sm-12 md-8 col">
         <div class="paper">
+          <article class="article">
+            <h1>封装, this,构造器,包</h1>
+            <p class="article-meta">
+              2017-06-08
+              
+            </p>
+            
+            <div class="post-content">
+              <p>学习封装, this,构造器,包的个人笔记</p>
+<!-- more -->
+<p>面向对象的三大特性: 封装, 继承, 多态</p>
+<h2 id="一封装性">一,封装性</h2>
+<h3 id="不封装的危害">不封装的危害</h3>
+<p>外界使用对象的属性时候, 可以任意的赋值. 比如人的年龄给了一个负数.</p>
+<h3 id="什么是封装">什么是封装</h3>
+<p>把该隐藏的隐藏起来, 把该暴露的暴露出来.</p>
+<h3 id="初识两种访问控制符-public-和-private">初识两种访问控制符, public 和 private</h3>
+<p>public: 公共的, 用于修饰属性,方法,类, 在任何地方都可以访问</p>
+<p>private: 私有的, 用于修饰属性,方法, 只能在本类内访问</p>
+<h3 id="封装的分类">封装的分类</h3>
+<ol>
+<li>对属性的封装</li>
+<li>对方法的封装</li>
+</ol>
+<h3 id="属性封装的步骤">属性封装的步骤:</h3>
+<ol>
+<li>对属性私有化private</li>
+<li>提供公共public的set, get方法访问, 也叫做设置器和访问器</li>
+</ol>
+<p>set方法:</p>
+<pre><code class="language-java">public void setAge(int age){
+		this.age = age;
+}
+</code></pre>
+<blockquote>
+<p>set方法的方法名,命名格式set打头, 后面跟上属性名.</p>
+<p>set方法的参数, 参数的类型和属性的类型要一致,</p>
+<p>set方法不需要返回值.</p>
+<p>this作用, 区分实例变量和形参</p>
+</blockquote>
+<p>get方法:</p>
+<pre><code class="language-java">public int getAge(){
+	return age;
+}
+</code></pre>
+<blockquote>
+<p>get方法的方法名, 命名要以get打头, 不需要参数,但是需要返回值.</p>
+<p>get方法的返回值类型必须要和属性的类型一致.</p>
+</blockquote>
+<h3 id="对方法的封装">对方法的封装</h3>
+<p>​         一个类中可以定义很多方法, 但通常并不是所有方法都需要对外界暴露, 只需要暴露一部分方法即可, 那就可以对无需暴露的方法, 使用private修饰成私有的. 外界无法访问.只能在类的内部使用</p>
+<h2 id="二-this关键字">二, this关键字</h2>
+<h3 id="this关键字">this关键字</h3>
+<p>使用在本类的方法中, 代表调用该方法的对象本身</p>
+<h3 id="this的作用">this的作用</h3>
+<p>可用于在本类中, 调用本类方法, 属性,和构造器</p>
+<h2 id="三构造器构造方法">三,构造器(构造方法)</h2>
+<h3 id="构造器的作用">构造器的作用</h3>
+<ol>
+<li>创建对象</li>
+<li>为对象进行初始化</li>
+</ol>
+<h3 id="构造器的格式">构造器的格式</h3>
+<blockquote>
+<p>如：	访问控制符 类名(参数列表){</p>
+<p>​</p>
+<p>​			}</p>
+</blockquote>
+<h3 id="构造器的注意事项">构造器的注意事项</h3>
+<ol>
+<li>构造器名称必须和类名保持一致</li>
+<li>构造器只能调用一次, 并且是在创建对象时.</li>
+<li>构造器没有返回值类型, 因此也不需要return语句</li>
+<li>构造器之间可以构成重载</li>
+<li>如果没有提供构造器, 系统默认提供一个默认无参构造器, 一旦自己定义了构造器, 那么系统无参构造器将不再提供</li>
+</ol>
+<h2 id="四多个构造器重载使用">四:多个构造器重载使用</h2>
+<ol>
+<li>
+<p>定义多个构造器满足不同的需求</p>
+</li>
+<li>
+<p>使用this嵌套调用, 减少冗余代码.</p>
+</li>
+<li>
+<p>在一个类中,至少有一个构造器不使用this调用, 避免递归调用.</p>
+</li>
+<li>
+<p>this在构造器中的调用只能写在第一行</p>
+</li>
+</ol>
+<blockquote>
+<p>注意:this调用构造器时, 不加点.   this(参数列表)</p>
+</blockquote>
+<h2 id="五-包package">五, 包package</h2>
+<h3 id="包的作用">包的作用</h3>
+<ol>
+<li>区分重复命名</li>
+<li>控制访问权限</li>
+<li>划分项目的结构层次, 通常将功能相近的类, 划分到同一个包中.</li>
+</ol>
+<h3 id="package关键字">package关键字</h3>
+<ol>
+<li>用于确定当前的类所在的位置</li>
+<li>com.lanou.demo1  每个包的.是一层级目录</li>
+<li>通常用公司域名倒写.(com.公司域名.项目名.模块名)</li>
+</ol>
+<h3 id="import关键字">import关键字</h3>
+<ol>
+<li>用于导入某个包下的类</li>
+<li>导入该包下所有的类和接口,用*</li>
+<li>不同包,相同类名, 又在同一类中使用, 需要使用全限定, 或者其中一个全限定.</li>
+</ol>
+<blockquote>
+<p>如：com.lanou.demo1.Student stu = new com.lanou.demo1.Student();</p>
+</blockquote>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
           
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://tangsongyuanmingqing1.github.io/post/mybatis-kuang-jia-xue-xi-bi-ji">Mybatis框架学习笔记</a>
-    </h2>
-    <p class="article-meta">
-      2018-04-16
-      
-    </p>
-    <p class="text-lead">
-      <p>Mybatis框架学习的个人总结</p>
-
-    </p>
-    <div class="row">
-      <a href="https://tangsongyuanmingqing1.github.io/post/mybatis-kuang-jia-xue-xi-bi-ji" class="readmore-link">
-        <button>
-          还想看更多？点下吧！
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://tangsongyuanmingqing1.github.io/post/spring-mvc">Spring MVC</a>
-    </h2>
-    <p class="article-meta">
-      2018-04-04
-      
-    </p>
-    <p class="text-lead">
-      <p>学习Spring MVC的个人总结</p>
-
-    </p>
-    <div class="row">
-      <a href="https://tangsongyuanmingqing1.github.io/post/spring-mvc" class="readmore-link">
-        <button>
-          还想看更多？点下吧！
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://tangsongyuanmingqing1.github.io/post/springaop">Spring AOP</a>
-    </h2>
-    <p class="article-meta">
-      2018-03-30
-      
-    </p>
-    <p class="text-lead">
-      <p>学习Spring AOP的个人总结</p>
-
-    </p>
-    <div class="row">
-      <a href="https://tangsongyuanmingqing1.github.io/post/springaop" class="readmore-link">
-        <button>
-          还想看更多？点下吧！
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://tangsongyuanmingqing1.github.io/post/spring-di">Spring DI</a>
-    </h2>
-    <p class="article-meta">
-      2018-03-26
-      
-    </p>
-    <p class="text-lead">
-      <p>学习Spring DI的个人总结</p>
-
-    </p>
-    <div class="row">
-      <a href="https://tangsongyuanmingqing1.github.io/post/spring-di" class="readmore-link">
-        <button>
-          还想看更多？点下吧！
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://tangsongyuanmingqing1.github.io/post/springioc">Spring IOC</a>
-    </h2>
-    <p class="article-meta">
-      2018-03-11
-      
-    </p>
-    <p class="text-lead">
-      <h1 id="学习spring-ioc的个人笔记">学习Spring IOC的个人笔记</h1>
-
-    </p>
-    <div class="row">
-      <a href="https://tangsongyuanmingqing1.github.io/post/springioc" class="readmore-link">
-        <button>
-          还想看更多？点下吧！
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://tangsongyuanmingqing1.github.io/post/nei-bu-lei">内部类</a>
-    </h2>
-    <p class="article-meta">
-      2017-08-09
-      
-    </p>
-    <p class="text-lead">
-      <p>学习内部类的个人总结</p>
-
-    </p>
-    <div class="row">
-      <a href="https://tangsongyuanmingqing1.github.io/post/nei-bu-lei" class="readmore-link">
-        <button>
-          还想看更多？点下吧！
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://tangsongyuanmingqing1.github.io/post/fan-xing">泛型</a>
-    </h2>
-    <p class="article-meta">
-      2017-07-23
-      
-    </p>
-    <p class="text-lead">
-      <h1 id="学习泛型的个人总结">学习泛型的个人总结</h1>
-
-    </p>
-    <div class="row">
-      <a href="https://tangsongyuanmingqing1.github.io/post/fan-xing" class="readmore-link">
-        <button>
-          还想看更多？点下吧！
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://tangsongyuanmingqing1.github.io/post/ji-he">集合</a>
-    </h2>
-    <p class="article-meta">
-      2017-07-13
-      
-    </p>
-    <p class="text-lead">
-      <p>学习集合的个人总结</p>
-
-    </p>
-    <div class="row">
-      <a href="https://tangsongyuanmingqing1.github.io/post/ji-he" class="readmore-link">
-        <button>
-          还想看更多？点下吧！
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://tangsongyuanmingqing1.github.io/post/java-jie-kou-interface">Java接口(interface)</a>
-    </h2>
-    <p class="article-meta">
-      2017-07-03
-      
-    </p>
-    <p class="text-lead">
-      <p>学习Java接口(interface)的个人总结</p>
-
-    </p>
-    <div class="row">
-      <a href="https://tangsongyuanmingqing1.github.io/post/java-jie-kou-interface" class="readmore-link">
-        <button>
-          还想看更多？点下吧！
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://tangsongyuanmingqing1.github.io/post/chou-xiang-lei">抽象类</a>
-    </h2>
-    <p class="article-meta">
-      2017-06-25
-      
-    </p>
-    <p class="text-lead">
-      <p>学习抽象类的个人总结</p>
-
-    </p>
-    <div class="row">
-      <a href="https://tangsongyuanmingqing1.github.io/post/chou-xiang-lei" class="readmore-link">
-        <button>
-          还想看更多？点下吧！
-        </button>
-      </a>
-    </div>
-  </article>
-
-
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://tangsongyuanmingqing1.github.io/post/lei-he-dui-xiang">
+                <h3 class="post-title">
+                  类和对象
+                </h3>
+              </a>
+            </div>
+          
         </div>
         
-        <div class="row flex-edges">
-  
-  
-    <a href="https://tangsongyuanmingqing1.github.io/page/2/" class="paper-btn">
-      下一页
-    </a>
-  
-</div>
-
       </div>
-      
+
       <div class="sm-12 md-4 col sidebar">
   <div class="paper info-container">
     <img src="https://tangsongyuanmingqing1.github.io/images/avatar.png?v=1576065325310" class="no-responsive avatar">
@@ -417,7 +329,9 @@
   </div>
 </div>
 
+
     </div>
+
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
 <script type="application/javascript">

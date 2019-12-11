@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Java接口(interface) | 唐宋</title>
+<meta name="description" content="&lt;img src=&#34;https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1576067917477&amp;di=981af9e2e885994371221c478cfd625d&amp;imgtype=jpg&amp;src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1205038546%2C1747959657%26fm%3D214%26gp%3D0.jpg&#34; /&gt;">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://tangsongyuanmingqing1.github.io/favicon.ico?v=1576065325310">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://tangsongyuanmingqing1.github.io/styles/main.css">
+
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://tangsongyuanmingqing1.github.io">唐宋</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                文档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>Java接口(interface)</h1>
+            <p class="article-meta">
+              2017-07-03
+              
+            </p>
+            
+            <div class="post-content">
+              <p>学习Java接口(interface)的个人总结</p>
+<!-- more -->
+<h2 id="一-什么是接口">一、什么是接口?</h2>
+<h3 id="1-生活中的接口">1、生活中的接口</h3>
+<p>USB接口</p>
+<figure data-type="image" tabindex="1"><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1564310685067&amp;di=0fe1f4c2d6d4f3897dd378c4401527f5&amp;imgtype=0&amp;src=http%3A%2F%2Fimg1.cache.netease.com%2Fcatchpic%2FF%2FFE%2FFE1B5FD222C0F70B0702D8CFA2A3EEE1.jpg" alt="USB接口"></figure>
+<p>USB接口可以连接U盘, 移动硬盘, 鼠标, 键盘, 手机,...</p>
+<blockquote>
+<p>U盘, 移动硬盘, 鼠标, 键盘, 手机等之所以能连接USB, 是因为这些硬件在制造的时候已经遵循了USB的<strong>连接标准.</strong></p>
+</blockquote>
+<h3 id="2-java中的接口">2、Java中的接口</h3>
+<p>Java中的接口与生活中的接口一样, 也是用于定义标准.</p>
+<p>既然是定义标准, 也就意味着接口中只规定有哪些方法, 但是并不提供这些方法的具体实现. 谁用这套标准谁来实现.</p>
+<h3 id="3-其他编程语言中的接口">3、其他编程语言中的接口</h3>
+<p>除了Java有接口的概念以外, 很多编程语言都有接口的概念.</p>
+<p>Java中用interface来表示接口</p>
+<p>C#、C++、PHP等语言中也是使用interface来表示接口</p>
+<p>Objective-C中使用protocol来表示接口.</p>
+<h2 id="二-java中如何定义接口">二、Java中如何定义接口</h2>
+<p>既然接口是一套标准，如何制定这套标准呢？</p>
+<h3 id="1-使用interface定义接口">1、使用interface定义接口</h3>
+<p>在java中使用interface关键之定义接口，具体语法格式如下：</p>
+<pre><code class="language-java">public interface 接口名{
+ 方法的声明   
+}
+</code></pre>
+<p>接口的示例如下:</p>
+<pre><code class="language-java">public interface Driver{
+    public void drive(Car car);//开车
+}
+</code></pre>
+<p>上面定义了一个接口叫Driver(即:司机), 接口里规定了司机必须会开车, 也就是说谁想要成为司机, 谁必须要会开车.</p>
+<h2 id="2-如何使用接口-implements">2、如何使用接口---(implements)</h2>
+<p>接口是一套标准, 内部只声明方法, 不提供实现. 谁要使用接口谁负责实现接口.实现接口使用<strong>implements</strong>关键字.</p>
+<p>实现接口的语法格式如下:</p>
+<pre><code class="language-java">public class Programmer implements Driver{
+    ...
+    public void drive(Car car){
+        System.out.println(&quot;程序员在小心翼翼的开车回家&quot;);
+    }
+}
+</code></pre>
+<p>上面的代码是Programmer类(即:程序员类)实现了Driver接口, 所谓的实现接口, 指的是实现接口中定义的全部方法.</p>
+<p>由于程序员类实现了司机接口中的全部方法, 因此具备了司机所需要的全部技能, 所以程序员不再是普通的程序员, 而是一个会开车的程序员.(既是司机又是程序员)</p>
+<p>再看下面的代码:</p>
+<pre><code class="language-java">public class Actor implements Driver{
+    ...
+    public void drive(Car car){
+        System.out.println(&quot;演员在开车兜风&quot;);
+    }
+}
+</code></pre>
+<p>上面的代码是Actor类(即:演员类)实现了Driver接口, 因此演员也不是普通的演员, 而是一个会开车的演员.</p>
+<h3 id="3-一个类实现多个接口-不会开车的厨师不是好程序员">3、一个类实现多个接口---(不会开车的厨师不是好程序员)</h3>
+<p>定义另外一个接口Cook（即:厨师）</p>
+<pre><code class="language-java">public interface Cook{
+    public void cook();//做饭
+    public void washFoodMaterial();//洗菜
+}
+</code></pre>
+<p>定义一个类(Programmer)同时实现Driver接口和Cook接口.</p>
+<pre><code class="language-java">public class Programmer implements Driver, Cook{
+    ...
+    public void drive(Car car){
+        System.out.println(&quot;程序员在小心翼翼的开车回家&quot;);
+    }
+    public void cook(){
+        System.out.println(&quot;程序员做了美味的饭菜&quot;);
+    }
+    public void washFoodMaterial(){
+        System.out.println(&quot;洗菜&quot;);
+    }
+}
+</code></pre>
+<p>上述代码Programmer实现了Driver和Cook接口, 即:实现了2个接口中规定的全部方法. 因此程序员具备了司机的技能和厨师的技能. 可以认为此程序员具备3种身份: 程序员,司机以及厨师.</p>
+<h2 id="三-接口有什么用">三、接口有什么用?</h2>
+<h3 id="1-实现多继承">1、实现多继承</h3>
+<p>众所周知, Java只允许类单继承, 并不支持类的多继承.</p>
+<p><strong>接口提供了一种间接实现多继承方式.只需要让类实现多个接口即可.</strong></p>
+<blockquote>
+<p>注意接口实现的多继承与C++中的多继承不同, C++是真正意义上的多继承, 每个父类的属性和方法都会继承, 而接口实现的多继承更多是继承方法, 因为接口中不能定义属性(能定义类常量).</p>
+</blockquote>
+<h3 id="2-多态">2、多态</h3>
+<p>多态是面向对象的一个重要特征, 它允许父类引用指向子类对象.</p>
+<p>既然接口可以实现继承乃至多继承, 因此可以把接口看做是实现类的父类, 进而产生多态的效果.</p>
+<pre><code class="language-java">Driver zhangsan =  new Progarmmer();
+</code></pre>
+<p>上述代码就是把 程序员看作了司机, 之所以程序员能看作司机, 是因为程序员实现了Driver接口, 具有了司机全部的功能(方法).</p>
+<h2 id="四-接口的注意事项">四、接口的注意事项</h2>
+<h3 id="1-接口里面的方法都必须是-public-abstract类型的">1、接口里面的方法都必须是 public abstract类型的</h3>
+<blockquote>
+<p>即便你没有写修饰符，也会默认给你加上public abstract。</p>
+</blockquote>
+<h3 id="2-接口可以看成一个特殊的抽象类">2、接口可以看成一个特殊的抽象类</h3>
+<p>接口里的所有方法都是抽象方法。这个类可以看成是一个抽象类，因此接口不能创建对象。只能有实现类创建类。</p>
+<blockquote>
+<p>实现类就是实现接口的类。</p>
+</blockquote>
+<h3 id="3-接口里面可以有属性">3、接口里面可以有属性</h3>
+<p>接口里可以有属性，但是属性必须是<strong>public static final</strong>修饰的属性，也就是说接口里面只能定义 静态常量。既然是常量，命名方式应该全部大写。访问方式参考static的访问方式。</p>
+<h3 id="4-接口可以继承别的接口">4、接口可以继承别的接口</h3>
+<p>接口可以继承别的接口，在定义接口的时候使用extends关键字来继承别的接口。</p>
+<p>一旦一个接口继承了别的接口，那么这个接口的实现类也要把继承的方法实现了。</p>
+<h3 id="五-接口与抽象类有什么异同">五、接口与抽象类有什么异同</h3>
+<h4 id="1-能否定义属性">1、能否定义属性</h4>
+<p>抽象类：抽象能定义静态属性以及非静态属性。</p>
+<p>接口：只能定义静态属性，并且这个静态属性必须是final类型的静态属性。本质上是常量。</p>
+<p>抽象类：能对属性进行读取以及写入操作。</p>
+<p>接口：只能读取属性的值，但是不能更改属性的值。</p>
+<h4 id="2-访问修饰符">2、访问修饰符</h4>
+<p>属性修饰符：</p>
+<p>​	抽象类：public, 默认， protected， private ；  static   final</p>
+<p>​	接口： 只能是public； static  final。</p>
+<p>方法修饰符：</p>
+<p>​	抽象类：public， 默认， protected ， private。static ，final, abstract</p>
+<p>​	接口：public abstract</p>
+<h4 id="3-能否有构造器">3、能否有构造器</h4>
+<p>抽象类： 可以有。</p>
+<p>接口：不可以。虽然接口可以看成类但是接口不是类。</p>
+<h4 id="4-能否包含抽象方法">4、能否包含抽象方法</h4>
+<p>抽象类：可以包含</p>
+<p>接口: 可以包含，必须是抽象方法</p>
+<h4 id="5-能否包含非抽象方法">5、能否包含非抽象方法</h4>
+<p>抽象类： 可以。</p>
+<p>接口：不可以。</p>
+<h4 id="6-是否可以包含初始化块">6、是否可以包含初始化块</h4>
+<p>抽象类：可以。</p>
+<p>接口：不可以。</p>
+<h4 id="7-是否可以包含内部类">7、是否可以包含内部类</h4>
+<p>抽象类：可以。</p>
+<p>接口：可以</p>
+<h4 id="8-继承">8、继承</h4>
+<p>抽象类：一个普通类只能继承一个抽象类。</p>
+<p>接口：一个普通类可以实现多个接口。</p>
+<h3 id="六-什么时候用接口什么时候用抽象类">六、什么时候用接口？什么时候用抽象类？</h3>
+<h4 id="接口的核心用途">接口的核心用途</h4>
+<p>定义一些方法，供实现类去实现。</p>
+<h4 id="抽象类的核心用途">抽象类的核心用途</h4>
+<p>定义一些方法以及一些属性，供子类继承。</p>
+<blockquote>
+<p>如果只是想增加几个方法，优先使用接口。让你的类去实现某个接口（接口里是你想要增加的方法）。</p>
+<p>如果既要增加方法又要增加属性，使用抽象类。让你的类继承抽象类，这样就可以获得抽象类中的属性，而且还可以实现抽象类中的方法。</p>
+<p>有一种情况，只能用接口不能用抽象类。-----多继承。你要实现的方法分别在多个接口里，你可以使用实现接口的方式来完成。但是你不能继承多个类。</p>
+</blockquote>
+<p>抽象类以及接口都是在讲述如何去设计项目中的类。</p>
+<p><strong>如果既要增加方法又要增加属性，使用抽象类。如果只想要方法，使用接口。</strong></p>
+<h2 id="练习">练习</h2>
+<h4 id="1定义一个接口shout叫声接口中定义一个叫声方法shout定义dogcat类分别实现shout接口">1.定义一个接口Shout（叫声），接口中定义一个叫声方法shout，定义Dog，Cat类分别实现Shout接口。</h4>
+<h4 id="2定义一个接口driver司机接口中定义一个开车方法drive定义一个person类让person实现driver接口">2.定义一个接口Driver（司机），接口中定义一个开车方法drive，定义一个Person类，让Person实现Driver接口。</h4>
+<h4 id="3定义一个接口keeper保安接口中定义一个opendoor-patrol和closedoor方法让上述person类实现keeper接口">3.定义一个接口Keeper（保安），接口中定义一个openDoor、patrol和closeDoor方法，让上述Person类实现Keeper接口。</h4>
+<h4 id="4-定义一个接口racer赛车手让racer接口继承driver接口racer接口内定义race方法-定义一个programmer类让这个类实现racer接口">4、定义一个接口Racer（赛车手），让Racer接口继承Driver接口，Racer接口内定义race方法。定义一个Programmer类，让这个类实现Racer接口。</h4>
+<h4 id="5-定义person类包含姓名年龄身高属性定义student类继承于person类定义teacher类继承于person类-定义一个接口mycomparable接口中定义int-comparetoperson-other方法-让student和teacher分别实现mycomparable接口student的compareto方法按年龄比较大小teacher的compareto按身高比较大小">5、定义Person类（包含姓名，年龄，身高属性），定义Student类继承于Person类，定义Teacher类继承于Person类。定义一个接口MyComparable，接口中定义int compareTo(Person other)方法。让Student和Teacher分别实现MyComparable接口，Student的compareTo方法按年龄比较大小，Teacher的compareTo按身高比较大小。</h4>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://tangsongyuanmingqing1.github.io/post/chou-xiang-lei">
+                <h3 class="post-title">
+                  抽象类
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://tangsongyuanmingqing1.github.io/images/avatar.png?v=1576065325310" class="no-responsive avatar">
+    <div class="text-muted"><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576067917477&di=981af9e2e885994371221c478cfd625d&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1205038546%2C1747959657%26fm%3D214%26gp%3D0.jpg" /></div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/mybatis-kuang-jia-xue-xi-bi-ji">Mybatis框架学习笔记</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/spring-mvc">Spring MVC</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/springaop">Spring AOP</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/spring-di">Spring DI</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/springioc">Spring IOC</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/nei-bu-lei">内部类</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/fan-xing">泛型</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/ji-he">集合</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/java-jie-kou-interface">Java接口(interface)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/chou-xiang-lei">抽象类</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+    </div>
+  </div>
+  <div class="paper">
+    <p>联系方式   |  150 3876 2003</p>
+<p>邮       箱   |  tangsongYMQ715417@163.com</p>
+<p>微       信   |  150 3876 2003</p>
+<p>Q         Q   |  1765706237</p> | <a class="rss" href="https://tangsongyuanmingqing1.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>

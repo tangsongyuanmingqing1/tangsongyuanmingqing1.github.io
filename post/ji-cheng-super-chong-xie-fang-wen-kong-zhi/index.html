@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>继承, super, 重写, 访问控制 | 唐宋</title>
+<meta name="description" content="&lt;img src=&#34;https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1576067917477&amp;di=981af9e2e885994371221c478cfd625d&amp;imgtype=jpg&amp;src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1205038546%2C1747959657%26fm%3D214%26gp%3D0.jpg&#34; /&gt;">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://tangsongyuanmingqing1.github.io/favicon.ico?v=1576065325310">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://tangsongyuanmingqing1.github.io/styles/main.css">
+
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://tangsongyuanmingqing1.github.io">唐宋</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                文档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>继承, super, 重写, 访问控制</h1>
+            <p class="article-meta">
+              2017-06-17
+              
+            </p>
+            
+            <div class="post-content">
+              <p>学习继承, super, 重写, 访问控制的个人笔记</p>
+<!-- more -->
+<h2 id="一什么是继承">一,什么是继承,</h2>
+<p>​         生活中的继承: 子承父业</p>
+<h2 id="二为什么要使用继承">二,为什么要使用继承</h2>
+<p>​         多个类中存在相同的属性和方法时, 将这些内容抽取到单独的一个类中,那么多个类无需再定义这些属性和行为, 只需从这个类继承即可, 用来提高代码的复用性, 以及可维护性.</p>
+<h2 id="三java中继承的语法格式">三,Java中继承的语法格式</h2>
+<p>Java中使用extends关键字 实现一个类从另外一个类继承, 那么extends关键字的含义是”扩展”.</p>
+<pre><code class="language-java">class A extends class B{
+
+}
+</code></pre>
+<p>A从B继承, A是B的子类, 派生类,SubClass, B是A的父类, 也叫做基类,超类,SuperClass</p>
+<p>通过继承, 子类可以继承父类中所有的属性和方法.(私有的方法及构造器除外)</p>
+<h2 id="四继承的注意事项">四,继承的注意事项.</h2>
+<ol>
+<li>Java祖宗类: java.lang.Object.,所有的类都是源自于它.</li>
+<li>子类不能单纯的为了获得父类的东西而使用继承, 使用继承时要能够被描述成所属关系is a. 比如学生是个人, 老师是个人.</li>
+<li>JAVA里面只支持单继承, 不支持多继承, 支持多层继承(子类还可以再有子类).</li>
+</ol>
+<h2 id="五-继承之后属性的特点">五, 继承之后属性的特点</h2>
+<ol>
+<li>
+<p>如果类中出现了和父类同名的属性的时候,创建子类对象,调用该属性, 使用的是子类的</p>
+</li>
+<li>
+<p>如果需要使用父类的,可以使用super关键字, 使用super可以访问父类的属性,方法,和构造器, super.属性, super.方法, super(...)构造器</p>
+<blockquote>
+<p>super的使用方法和this一模一样, super.属性, super.方法, super()调用父类构造器, this使用在本类中,代表当前对象. super使用在子类中, 访问父类的成员, super仅仅是个关键字,不是引用.</p>
+</blockquote>
+</li>
+<li>
+<p>子类从父类继承之后, 子类可以获得父类所有的属性和方法, (私有方法和构造器除外),父类修饰成private的属性, 子类不能直接访问, 但可以通过公共的set/get方法间接访问</p>
+</li>
+</ol>
+<h2 id="六-方法重写override">六, 方法重写Override</h2>
+<ol>
+<li>为什么要使用方法重写</li>
+</ol>
+<p>当父类方法实现不能够满足子类需求时, 子类可以对父类方法进行重写</p>
+<blockquote>
+<p>因为子类是父类的扩展, 当子类对父类方法进行重写后, 需要保留父类方法实现, 可以在重写方法中, 使用super.调用父类方法实现.</p>
+</blockquote>
+<ol start="2">
+<li>方法重写注意事项</li>
+</ol>
+<ul>
+<li>必须要有继承</li>
+<li>方法名, 参数列表必须一致.</li>
+<li>访问修饰符可以不一样,但是子类的访问修饰符不能够小于父类的访问修饰符. 如,父类是默认, 子类是public</li>
+<li>返回值可以不一样, 但是子类重写方法的” 返回值类型”,必须是” 父类返回值类型”的子类</li>
+<li>通常重写方法需要加上@Override注解, 做重写方法检查</li>
+</ul>
+<h2 id="七方法重载和方法重写的区别">七:方法重载和方法重写的区别</h2>
+<p>方法重载:</p>
+<ol>
+<li>
+<p>方法名相同</p>
+</li>
+<li>
+<p>参数列表不同(参数个数, 参数类型)</p>
+</li>
+<li>
+<p>与返回值类型无关</p>
+</li>
+</ol>
+<p>方法重写同6-2</p>
+<h2 id="八继承后构造器的特点">八,继承后构造器的特点</h2>
+<ol>
+<li>当子类继承父类后, 子类中所有的构造器的第一句,都有一个隐式的:super().</li>
+</ol>
+<blockquote>
+<p>super()的作用, 是调用父类无参的构造器.</p>
+<p>super()的目的, 当子类继承父类后,继承了父类所有的属性和方法, 因此,子类需要知道父类是如何为对象进行初始化的.</p>
+</blockquote>
+<ol start="2">
+<li>
+<p>如果父类中没有显式定义无参构造, 只给了有参构造, 那么子类的构造器中,就不能使用super(),</p>
+<p>解决方法:</p>
+<ul>
+<li>
+<p>父类显式提供一个无参构造</p>
+</li>
+<li>
+<p>子类构造器中, 显式调用父类有参构造, 如果子类显式调用了父类的有参构造super(参数),  子类构造隐式的super()将不再提供.</p>
+</li>
+<li>
+<p>子类所有的构造器里, 默认都有一个隐式的super().</p>
+</li>
+<li>
+<p>super() 必须出现在当前构造器中的首行 ,</p>
+</li>
+<li>
+<p>super() 和this() 不能同时出现(指的是super和this调用构造方法)</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="九访问控制修饰符">九:访问控制修饰符</h2>
+<table>
+<thead>
+<tr>
+<th>权限修饰符</th>
+<th>本类</th>
+<th>同一个包下</th>
+<th>不同包下</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>子类</td>
+<td>无关类</td>
+<td>子类</td>
+<td>无关类</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>private(私有)</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>默认(不写)</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>protected(受保护的)</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>public(公共的)</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>public: 公共的, 可用于修饰属性,方法,类, 可以在任何地方访问.</p>
+<p>protected: 受保护的, 可用于修饰属性,方法, 只能在本类中, 本包中, 子类中使用</p>
+<p>default: 默认的(缺省的), 可用于修饰属性,方法,和类. 只能在本类中, 本包中使用 (并不是关键字, 什么都不写就是default)</p>
+<p>private: 私有的, 可用于修饰属性, 方法, 只能在本类中使用.</p>
+</blockquote>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://tangsongyuanmingqing1.github.io/post/feng-zhuang-thisgou-zao-qi-bao">
+                <h3 class="post-title">
+                  封装, this,构造器,包
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://tangsongyuanmingqing1.github.io/images/avatar.png?v=1576065325310" class="no-responsive avatar">
+    <div class="text-muted"><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576067917477&di=981af9e2e885994371221c478cfd625d&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1205038546%2C1747959657%26fm%3D214%26gp%3D0.jpg" /></div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/mybatis-kuang-jia-xue-xi-bi-ji">Mybatis框架学习笔记</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/spring-mvc">Spring MVC</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/springaop">Spring AOP</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/spring-di">Spring DI</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/springioc">Spring IOC</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/nei-bu-lei">内部类</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/fan-xing">泛型</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/ji-he">集合</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/java-jie-kou-interface">Java接口(interface)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/chou-xiang-lei">抽象类</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+    </div>
+  </div>
+  <div class="paper">
+    <p>联系方式   |  150 3876 2003</p>
+<p>邮       箱   |  tangsongYMQ715417@163.com</p>
+<p>微       信   |  150 3876 2003</p>
+<p>Q         Q   |  1765706237</p> | <a class="rss" href="https://tangsongyuanmingqing1.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>

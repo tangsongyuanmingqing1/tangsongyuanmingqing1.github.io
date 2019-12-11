@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>唐宋</title>
+<title>类和对象 | 唐宋</title>
 <meta name="description" content="&lt;img src=&#34;https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1576067917477&amp;di=981af9e2e885994371221c478cfd625d&amp;imgtype=jpg&amp;src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1205038546%2C1747959657%26fm%3D214%26gp%3D0.jpg&#34; /&gt;">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -23,6 +23,7 @@
 
   </head>
   <body>
+  
     <nav class="navbar border fixed split-nav">
   <div class="nav-brand">
     <h3><a href="https://tangsongyuanmingqing1.github.io">唐宋</a></h3>
@@ -76,235 +77,106 @@
   </div>
 </nav>
 
-
     <div id="top" class="row site">
       <div class="sm-12 md-8 col">
         <div class="paper">
+          <article class="article">
+            <h1>类和对象</h1>
+            <p class="article-meta">
+              2017-06-03
+              
+            </p>
+            
+            <div class="post-content">
+              <p>学习类和对象的个人笔记</p>
+<!-- more -->
+<h2 id="一两大编程思想">一,两大编程思想</h2>
+<p>面向过程和面向对象.<br>
+面向过程:关注解决问题的步骤<br>
+面向对象:关注解决问题参与的事物(对象)</p>
+<h2 id="二类和对象">二,类和对象</h2>
+<p>类,是对一组具有相同特征和行为事物的抽象.<br>
+对象: 是具体的.世间万物皆对象.</p>
+<blockquote>
+<p>面向对象更加注重前期的设计, 就是对类的设计,设计类的成员: 特征(属性)和行为(方法)</p>
+</blockquote>
+<h2 id="三java定义类">三,JAVA定义类</h2>
+<p>​	访问控制符 类名{<br>
+​				//属性(特征)<br>
+​				//方法(行为)<br>
+​	}</p>
+<h2 id="四使用类创建对象使用对象访问对象的属性和方法">四,使用类创建对象,使用对象访问对象的属性和方法</h2>
+<p>类名 对象名 = new 类名();</p>
+<pre><code class="language-java">//访问对象的属性
+Person person = new Person();
+person.name = &quot;张三&quot;;
+person.age = 18;
+person.sex = &quot;男&quot;;
+//访问对象的方法
+person.sayHello();
+person.eat();
+person.sleep();
+</code></pre>
+<blockquote>
+<p>属性: 又叫成员属性, 成员变量, 实例变量</p>
+</blockquote>
+<h2 id="五创建对象的内存分配方式">五,创建对象的内存分配方式</h2>
+<p>Java所有new 出来的对象都是在堆区存储的</p>
+<h2 id="六注意事项">六,注意事项</h2>
+<ol>
+<li>
+<p>局部变量和成员变量的区别</p>
+<ul>
+<li>作用域不一样</li>
+<li>内存中的位置不一样</li>
+<li>成员变量有默认值, 局部变量没有默认值.
+<ul>
+<li>整型属性默认值是0</li>
+<li>浮点型属性默认值是0.0</li>
+<li>字符型属性默认值是’\u0000’</li>
+<li>布尔型属性默认值是false</li>
+<li>引用类型属性默认值是null</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>属性赋值初始值的方式</p>
+<ul>
+<li>
+<p>属性缺省值</p>
+<blockquote>
+<p>缺省值就是<strong>默认值</strong></p>
+</blockquote>
+</li>
+<li>
+<p>定义属性直接显式赋初值</p>
+</li>
+<li>
+<p>通过对象修改属性内容</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="七gc垃圾回收机制">七,GC垃圾回收机制</h2>
+<ol>
+<li>内存分配<br>
+由JVM自动分配内存空间.</li>
+<li>内存回收<br>
+由JVM的垃圾回收机制自动释放内存空间.</li>
+<li>垃圾回收机制(GC Garbage Collection) 自动将垃圾对象从内存中释放</li>
+<li>垃圾对象指的是不被任何引用指向的对象.</li>
+</ol>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
           
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://tangsongyuanmingqing1.github.io/post/mybatis-kuang-jia-xue-xi-bi-ji">Mybatis框架学习笔记</a>
-    </h2>
-    <p class="article-meta">
-      2018-04-16
-      
-    </p>
-    <p class="text-lead">
-      <p>Mybatis框架学习的个人总结</p>
-
-    </p>
-    <div class="row">
-      <a href="https://tangsongyuanmingqing1.github.io/post/mybatis-kuang-jia-xue-xi-bi-ji" class="readmore-link">
-        <button>
-          还想看更多？点下吧！
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://tangsongyuanmingqing1.github.io/post/spring-mvc">Spring MVC</a>
-    </h2>
-    <p class="article-meta">
-      2018-04-04
-      
-    </p>
-    <p class="text-lead">
-      <p>学习Spring MVC的个人总结</p>
-
-    </p>
-    <div class="row">
-      <a href="https://tangsongyuanmingqing1.github.io/post/spring-mvc" class="readmore-link">
-        <button>
-          还想看更多？点下吧！
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://tangsongyuanmingqing1.github.io/post/springaop">Spring AOP</a>
-    </h2>
-    <p class="article-meta">
-      2018-03-30
-      
-    </p>
-    <p class="text-lead">
-      <p>学习Spring AOP的个人总结</p>
-
-    </p>
-    <div class="row">
-      <a href="https://tangsongyuanmingqing1.github.io/post/springaop" class="readmore-link">
-        <button>
-          还想看更多？点下吧！
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://tangsongyuanmingqing1.github.io/post/spring-di">Spring DI</a>
-    </h2>
-    <p class="article-meta">
-      2018-03-26
-      
-    </p>
-    <p class="text-lead">
-      <p>学习Spring DI的个人总结</p>
-
-    </p>
-    <div class="row">
-      <a href="https://tangsongyuanmingqing1.github.io/post/spring-di" class="readmore-link">
-        <button>
-          还想看更多？点下吧！
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://tangsongyuanmingqing1.github.io/post/springioc">Spring IOC</a>
-    </h2>
-    <p class="article-meta">
-      2018-03-11
-      
-    </p>
-    <p class="text-lead">
-      <h1 id="学习spring-ioc的个人笔记">学习Spring IOC的个人笔记</h1>
-
-    </p>
-    <div class="row">
-      <a href="https://tangsongyuanmingqing1.github.io/post/springioc" class="readmore-link">
-        <button>
-          还想看更多？点下吧！
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://tangsongyuanmingqing1.github.io/post/nei-bu-lei">内部类</a>
-    </h2>
-    <p class="article-meta">
-      2017-08-09
-      
-    </p>
-    <p class="text-lead">
-      <p>学习内部类的个人总结</p>
-
-    </p>
-    <div class="row">
-      <a href="https://tangsongyuanmingqing1.github.io/post/nei-bu-lei" class="readmore-link">
-        <button>
-          还想看更多？点下吧！
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://tangsongyuanmingqing1.github.io/post/fan-xing">泛型</a>
-    </h2>
-    <p class="article-meta">
-      2017-07-23
-      
-    </p>
-    <p class="text-lead">
-      <h1 id="学习泛型的个人总结">学习泛型的个人总结</h1>
-
-    </p>
-    <div class="row">
-      <a href="https://tangsongyuanmingqing1.github.io/post/fan-xing" class="readmore-link">
-        <button>
-          还想看更多？点下吧！
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://tangsongyuanmingqing1.github.io/post/ji-he">集合</a>
-    </h2>
-    <p class="article-meta">
-      2017-07-13
-      
-    </p>
-    <p class="text-lead">
-      <p>学习集合的个人总结</p>
-
-    </p>
-    <div class="row">
-      <a href="https://tangsongyuanmingqing1.github.io/post/ji-he" class="readmore-link">
-        <button>
-          还想看更多？点下吧！
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://tangsongyuanmingqing1.github.io/post/java-jie-kou-interface">Java接口(interface)</a>
-    </h2>
-    <p class="article-meta">
-      2017-07-03
-      
-    </p>
-    <p class="text-lead">
-      <p>学习Java接口(interface)的个人总结</p>
-
-    </p>
-    <div class="row">
-      <a href="https://tangsongyuanmingqing1.github.io/post/java-jie-kou-interface" class="readmore-link">
-        <button>
-          还想看更多？点下吧！
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://tangsongyuanmingqing1.github.io/post/chou-xiang-lei">抽象类</a>
-    </h2>
-    <p class="article-meta">
-      2017-06-25
-      
-    </p>
-    <p class="text-lead">
-      <p>学习抽象类的个人总结</p>
-
-    </p>
-    <div class="row">
-      <a href="https://tangsongyuanmingqing1.github.io/post/chou-xiang-lei" class="readmore-link">
-        <button>
-          还想看更多？点下吧！
-        </button>
-      </a>
-    </div>
-  </article>
-
-
         </div>
         
-        <div class="row flex-edges">
-  
-  
-    <a href="https://tangsongyuanmingqing1.github.io/page/2/" class="paper-btn">
-      下一页
-    </a>
-  
-</div>
-
       </div>
-      
+
       <div class="sm-12 md-4 col sidebar">
   <div class="paper info-container">
     <img src="https://tangsongyuanmingqing1.github.io/images/avatar.png?v=1576065325310" class="no-responsive avatar">
@@ -417,7 +289,9 @@
   </div>
 </div>
 
+
     </div>
+
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
 <script type="application/javascript">

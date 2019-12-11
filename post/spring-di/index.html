@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Spring DI | 唐宋</title>
+<meta name="description" content="&lt;img src=&#34;https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1576067917477&amp;di=981af9e2e885994371221c478cfd625d&amp;imgtype=jpg&amp;src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1205038546%2C1747959657%26fm%3D214%26gp%3D0.jpg&#34; /&gt;">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://tangsongyuanmingqing1.github.io/favicon.ico?v=1576065325310">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://tangsongyuanmingqing1.github.io/styles/main.css">
+
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://tangsongyuanmingqing1.github.io">唐宋</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                文档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>Spring DI</h1>
+            <p class="article-meta">
+              2018-03-26
+              
+            </p>
+            
+            <div class="post-content">
+              <p>学习Spring DI的个人总结</p>
+<!-- more -->
+<h2 id="概述">概述</h2>
+<p>DI的全称是Dependency Injection（依赖注入）。IOC是将我们工程中的所有对象交由Spring来管理，DI是此基础，将对象中的属性、依赖的其他对象也管理起来，自动注入到由Spring帮我们管理的对象中。</p>
+<blockquote>
+<p>将要注入的对象和目标对象都必须是由SpringIOC管理的bean.</p>
+</blockquote>
+<h2 id="di的细节实现">DI的细节实现</h2>
+<h3 id="构造参数注入">构造参数注入</h3>
+<p>将一个bean创建过程中构造方法需要的参数，通过Spring DI的方式，自动注入到构造方法中。</p>
+<h3 id="setter注入">Setter注入</h3>
+<p>先通过一个无参的构造方法创建对象，然后通过属性的setter方法，将属性值注入到对象上。</p>
+<h3 id="支持注入的类型">支持注入的类型</h3>
+<ul>
+<li>
+<p>普通字面量</p>
+<ul>
+<li>String</li>
+<li>Integer(int)</li>
+<li>Long(long)</li>
+<li>Byte(byte)</li>
+<li>...</li>
+</ul>
+</li>
+<li>
+<p>集和类型</p>
+<ul>
+<li>
+<p>List</p>
+<pre><code class="language-xml">&lt;bean id=&quot;xxx&quot; class=&quot;xx.xxx.xxx.AA&quot;&gt;&lt;/bean&gt;
+&lt;bean&gt;
+    &lt;property name=&quot;hobbies&quot;&gt;
+    	&lt;list&gt;
+        	&lt;value&gt;简单类型值&lt;/value&gt;
+            &lt;bean&gt;内部bean&lt;/bean&gt;
+            &lt;ref bean=&quot;xxx&quot; /&gt;
+        &lt;/list&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;
+</code></pre>
+</li>
+<li>
+<p>Map</p>
+<pre><code class="language-xml">&lt;bean id=&quot;xxx&quot; class=&quot;xx.xxx.xxx.AA&quot;&gt;&lt;/bean&gt;
+&lt;bean&gt;
+    &lt;property name=&quot;gameTitle&quot;&gt;
+    	&lt;map&gt;
+        	&lt;entry key=&quot;王者荣耀&quot; value=&quot;荣耀王者&quot; /&gt;
+            &lt;entry key=&quot;王者荣耀&quot; value-ref=&quot;xxx&quot; /&gt;
+        &lt;/list&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;
+</code></pre>
+</li>
+<li>
+<p>Set</p>
+<pre><code class="language-xml">&lt;bean id=&quot;xxx&quot; class=&quot;xx.xxx.xxx.AA&quot;&gt;&lt;/bean&gt;
+&lt;bean&gt;
+    &lt;property name=&quot;hobbies&quot;&gt;
+    	&lt;!-- set用法和List类似， 里面可以注入普通字面量值、也可以是一个bean引用，或者内部bean、或者是一个set、list、Properties  --&gt;
+        &lt;set&gt;
+        	&lt;value&gt;简单类型值&lt;/value&gt;
+            &lt;bean&gt;内部bean&lt;/bean&gt;
+            &lt;ref bean=&quot;xxx&quot; /&gt;
+        &lt;/set&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;
+</code></pre>
+</li>
+<li>
+<p>java.util.Properties</p>
+<pre><code class="language-xml">&lt;!-- props标签是用来注入java.util.Properties类型的属性，用法和map类似，但是属性值是在标签中间写 --&gt;
+&lt;property name=&quot;gameNick&quot;&gt;
+    &lt;props&gt;
+        &lt;prop key=&quot;王者荣耀&quot;&gt;最擅长1V5&lt;/prop&gt;
+        &lt;prop key=&quot;吃鸡&quot;&gt;一枪爆头&lt;/prop&gt;
+    &lt;/props&gt;
+&lt;/property&gt;
+</code></pre>
+</li>
+<li>
+<p>注入空置、空字符串</p>
+<pre><code class="language-xml">&lt;property name=&quot;gameNick&quot;&gt;
+    &lt;null /&gt;
+&lt;/property&gt;
+
+
+&lt;property name=&quot;gameNick&quot; value=&quot;&quot; /&gt;
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="自动装配">自动装配</h3>
+<h5 id="自动装配支持的策略">自动装配支持的策略</h5>
+<ul>
+<li>
+<p>byType</p>
+<p>按照类型去IOC容器中找需要的bean，如果找到一个，则自动装配；如果没找到，不注入此属性；如果找到了多个匹配类型的bean，就会报错。</p>
+</li>
+<li>
+<p>byName</p>
+<p>按照名称去IOC容器中找需要的bean，如果找到就自动注入；如果没找到，不注入此属性。</p>
+</li>
+<li>
+<p>constructor</p>
+<p>工作原理和byType类似，也是按照类型去IOC容器中找对应的bean。不同的是注入的地方不是setter，而是构造方法的参数。</p>
+</li>
+<li>
+<p>no  （默认值）</p>
+<p>如果没有打开自动注入，默认Spring不会自动装配需要的属性。</p>
+</li>
+</ul>
+<h2 id="xml方式的di">XML方式的DI</h2>
+<h3 id="构造参数注入-2">构造参数注入</h3>
+<ul>
+<li>
+<p>常规写法</p>
+<pre><code class="language-xml">&lt;bean id=&quot;xx&quot; class=&quot;&quot; /&gt;
+&lt;bean class=&quot;com.test.XXX&quot;&gt;
+	&lt;constructor-arg name=&quot;age&quot; value=&quot;45&quot; /&gt;
+    &lt;constructor-arg name=&quot;x&quot; ref=&quot;xx&quot; /&gt;  &lt;!-- 注入引用的bean --&gt;
+    &lt;constructor-arg name=&quot;&quot;&gt;	&lt;!-- 注入内部bean --&gt;
+    	&lt;bean&gt;&lt;/bean&gt;
+    &lt;/constructor-arg&gt;
+    &lt;constructor-arg name=&quot;&quot;&gt;	&lt;!-- 注入list类型构造参数 --&gt;
+    	&lt;list&gt;
+        	
+        &lt;/list&gt;
+    &lt;/constructor-arg&gt;
+    ....
+&lt;/bean&gt;
+</code></pre>
+</li>
+<li>
+<p>c命名空间简写</p>
+<pre><code class="language-xml">&lt;bean id=&quot;xx&quot; class=&quot;&quot; /&gt;
+&lt;bean class=&quot;com.test.XXX&quot; c:age=&quot;45&quot; c:x-ref=&quot;xx&quot; /&gt;
+</code></pre>
+</li>
+</ul>
+<h3 id="setter方式注入">setter方式注入</h3>
+<p>setter注入能够注入的类型以及写法基本和构造参数注入时的写法一致，只不过将<construtor-arg>标签换成了<property></p>
+<ul>
+<li>
+<p>常规用法</p>
+<pre><code class="language-xml">&lt;bean id=&quot;xx&quot; class=&quot;&quot; /&gt;
+&lt;bean class=&quot;com.test.XXX&quot;&gt;
+	&lt;property name=&quot;age&quot; value=&quot;45&quot; /&gt;
+    &lt;property name=&quot;x&quot; ref=&quot;xx&quot; /&gt;  &lt;!-- 注入引用的bean --&gt;
+    &lt;property name=&quot;&quot;&gt;	&lt;!-- 注入内部bean --&gt;
+    	&lt;bean&gt;&lt;/bean&gt;
+    &lt;/property&gt;
+    &lt;property name=&quot;&quot;&gt;	&lt;!-- 注入list类型构造参数 --&gt;
+    	&lt;list&gt;
+        	
+        &lt;/list&gt;
+    &lt;/property&gt;
+    ....
+&lt;/bean&gt;
+</code></pre>
+</li>
+<li>
+<p>p命名空间简写</p>
+<pre><code class="language-xml">&lt;bean id=&quot;xx&quot; class=&quot;&quot; /&gt;
+&lt;bean class=&quot;com.test.XXX&quot; p:age=&quot;45&quot; p:x-ref=&quot;xx&quot; /&gt;
+</code></pre>
+</li>
+</ul>
+<h3 id="开启自动装配">开启自动装配</h3>
+<pre><code class="language-xml">&lt;!-- 
+通过给当前的bean添加autowire属性开启自动注入
+可选的值：参见自动装配章节
+ --&gt;
+&lt;bean id=&quot;xx&quot; class=&quot;&quot; autowire=&quot;&quot; /&gt;
+</code></pre>
+<h3 id="提高自动装配时的权重">提高自动装配时的权重</h3>
+<pre><code class="language-xml">&lt;!-- 当其他的bean中需要注入一个Test类型的属性，而满足条件的bean有多个时，会优先注入primary=&quot;true&quot;的bean --&gt;
+&lt;bean id=&quot;xx&quot; class=&quot;com.Test&quot; primary=&quot;true&quot; /&gt;
+</code></pre>
+<h3 id="按类型自动装配时不参与候选">按类型自动装配时，不参与候选</h3>
+<pre><code class="language-xml">&lt;!-- 当其他的bean中需要注入一个Test类型的属性，而满足条件的bean有多个时，autowire-candidate=&quot;false&quot;的bean会自动退出候选序列 --&gt;
+&lt;bean id=&quot;xx&quot; class=&quot;com.Test&quot; autowire-candidate=&quot;false&quot; /&gt;
+</code></pre>
+<h2 id="注解方式的di">注解方式的DI</h2>
+<ul>
+<li>
+<p>构造参数注入</p>
+<p>在构造方法上添加 <code>@Autowired</code>注解，构造方法的参数就会自动注入进来</p>
+</li>
+<li>
+<p>setter方法注入</p>
+<p>方法有两种：</p>
+<ol>
+<li>在属性的setter方法上添加<code>@Autowired</code>注解</li>
+<li>在属性上添加<code>@Autowired</code>注解</li>
+</ol>
+</li>
+</ul>
+<h3 id="提高自动装配时的权重-2">提高自动装配时的权重</h3>
+<pre><code class="language-java">@Primary
+@Component
+public class Test {
+
+
+}
+
+public class Main {
+    
+    @Primary
+    @Bean
+    public void test() {
+        return new Test();
+    }
+    
+}
+</code></pre>
+<h2 id="注入外部property文件中的属性值">注入外部Property文件中的属性值</h2>
+<h3 id="在xml中的配置方式">在XML中的配置方式</h3>
+<pre><code class="language-xml">&lt;!-- 添加context命名空间 --&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+	xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
+
+
+&lt;!-- 导入外部properties文件到ioc上下文中 --&gt;
+&lt;context:property-placeholder location=&quot;jdbc.properties&quot; /&gt;
+
+&lt;!-- 使用占位符的方式获取properties文件中的属性值 --&gt;
+&lt;bean id=&quot;dataSource&quot; class=&quot;com.alibaba.druid.pool.DruidDataSource&quot; init-method=&quot;init&quot; destroy-method=&quot;close&quot;&gt;
+    &lt;property name=&quot;url&quot; value=&quot;${jdbc.url}&quot; /&gt;
+    &lt;property name=&quot;username&quot; value=&quot;${jdbc.user}&quot; /&gt;
+    &lt;property name=&quot;password&quot; value=&quot;${jdbc.password}&quot; /&gt;
+    &lt;property name=&quot;driverClassName&quot; value=&quot;${jdbc.driver}&quot; /&gt;
+&lt;/bean&gt;
+</code></pre>
+<h3 id="在注解中的配置方式">在注解中的配置方式</h3>
+<p>通过<code>@PropertySource</code>注解可以将外部properties文件导入到上下文中，通过<code>@Value</code>注解可以获取properties文件中的属性值，并注入到当前类的属性中</p>
+<pre><code class="language-java">@Configuration
+@ComponentScan(basePackages = &quot;com.lanou.spring&quot;)
+@PropertySource(&quot;classpath:/jdbc.properties&quot;)
+public class MyConfiguration {
+
+	@Value(&quot;${jdbc.url}&quot;)
+    private String url;
+    @Value(&quot;${jdbc.user}&quot;)
+    private String username;
+    @Value(&quot;${jdbc.password}&quot;)
+    private String password;
+    @Value(&quot;${jdbc.driver}&quot;)</code></pre>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://tangsongyuanmingqing1.github.io/post/springioc">
+                <h3 class="post-title">
+                  Spring IOC
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://tangsongyuanmingqing1.github.io/images/avatar.png?v=1576065325310" class="no-responsive avatar">
+    <div class="text-muted"><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576067917477&di=981af9e2e885994371221c478cfd625d&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1205038546%2C1747959657%26fm%3D214%26gp%3D0.jpg" /></div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/mybatis-kuang-jia-xue-xi-bi-ji">Mybatis框架学习笔记</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/spring-mvc">Spring MVC</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/springaop">Spring AOP</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/spring-di">Spring DI</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/springioc">Spring IOC</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/nei-bu-lei">内部类</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/fan-xing">泛型</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/ji-he">集合</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/java-jie-kou-interface">Java接口(interface)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/chou-xiang-lei">抽象类</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+    </div>
+  </div>
+  <div class="paper">
+    <p>联系方式   |  150 3876 2003</p>
+<p>邮       箱   |  tangsongYMQ715417@163.com</p>
+<p>微       信   |  150 3876 2003</p>
+<p>Q         Q   |  1765706237</p> | <a class="rss" href="https://tangsongyuanmingqing1.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>

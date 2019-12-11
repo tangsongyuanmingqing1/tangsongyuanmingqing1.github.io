@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>static, final, 多态, instanceof, Object类 | 唐宋</title>
+<meta name="description" content="&lt;img src=&#34;https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1576067917477&amp;di=981af9e2e885994371221c478cfd625d&amp;imgtype=jpg&amp;src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1205038546%2C1747959657%26fm%3D214%26gp%3D0.jpg&#34; /&gt;">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://tangsongyuanmingqing1.github.io/favicon.ico?v=1576065325310">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://tangsongyuanmingqing1.github.io/styles/main.css">
+
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://tangsongyuanmingqing1.github.io">唐宋</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                文档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>static, final, 多态, instanceof, Object类</h1>
+            <p class="article-meta">
+              2017-06-20
+              
+            </p>
+            
+            <div class="post-content">
+              <p>学习static, final, 多态, instanceof, Object类的个人笔记</p>
+<!-- more -->
+<h2 id="一-static-修饰符">一: static 修饰符</h2>
+<h3 id="static含义">static含义:</h3>
+<p>静态的, 用于修饰属性,方法, 代码块, 内部类</p>
+<h3 id="static修饰的属性静态变量或者类变量">static修饰的属性(静态变量或者类变量)</h3>
+<p>​    使用场景:如果某个属性想被类的全部实例共享, 可以把这个属性修饰成是static<br>
+A,静态变量随着类的加载而加载, 随着类的消失而消失<br>
+B,静态变量被该类所有的对象所共享<br>
+C,一旦某个对象改变了该属性值,其他对象的属性值也会随着改变<br>
+D,静态变量优先于对象存在的, 所以即可以通过类名调用. 也可以通过对象来调用</p>
+<h3 id="实例变量和类变量的区别">实例变量和类变量的区别</h3>
+<ul>
+<li>内存中的位置不同</li>
+<li>生命周期不同</li>
+</ul>
+<h3 id="static-修饰的方法静态方法或类方法">static 修饰的方法(静态方法或类方法)</h3>
+<ul>
+<li>静态方法也是随着类的加载而加载</li>
+<li>静态方法的存在优先于对象,所以可以通过类名.类方法来调用</li>
+<li>静态方法中,不能使用非静态成员, 但可以使用静态成员</li>
+<li>非静态方法中, 可以使用静态成员</li>
+<li>静态方法中也不可以使用this 和 super</li>
+<li>非静态方法中,可以嵌套调用静态方法</li>
+</ul>
+<h2 id="二-final-修饰符">二, final 修饰符</h2>
+<h3 id="含义及作用">含义及作用:</h3>
+<p>最终的, 可以用于修饰变量(成员变量, 局部变量),方法, 类</p>
+<h3 id="使用场景">使用场景</h3>
+<ul>
+<li>final修饰的类不能被继承</li>
+<li>final 修饰的方法不能被重写</li>
+<li>final 修饰的变量,一旦被赋值, 值不能改变</li>
+</ul>
+<h3 id="全局静态常量">全局静态常量</h3>
+<p>使用public static final修饰的属性为全局静态常量</p>
+<h2 id="三-多态">三, 多态</h2>
+<h3 id="多态的含义">多态的含义</h3>
+<p>一类事物的多种表现形态., 比如人这个事物, 有两种形态,男人, 女人</p>
+<h3 id="java中多态的体现形式">Java中多态的体现形式</h3>
+<ol>
+<li>方法的重载和重写<br>
+方法的功能相同, 但是运行的结果的不同</li>
+<li>对象的多态性
+<ul>
+<li>父类的引用,指向子类的对象</li>
+<li>Java程序的运行分为编译时和运行时, 在多态的情况下:</li>
+<li>编译时:看等号左边, 看的是父类引用</li>
+<li>运行时:看等号右边, 实际运行的是子类重写的父类的方法.</li>
+<li>如果, 父类型引用, 调用子类独有方法, 编译时会出错.</li>
+</ul>
+</li>
+</ol>
+<h3 id="多态的前提">多态的前提</h3>
+<ol>
+<li>要有继承关系</li>
+<li>要有方法的重写(运行时动态绑定)</li>
+</ol>
+<h3 id="引用类型的强制转换">引用类型的强制转换</h3>
+<ol>
+<li>向上转型, 子类类型转父类类型, 系统自动完成转换</li>
+<li>向下转型 父类类型转子类类型, 需要强制转换</li>
+</ol>
+<h3 id="多态的作用">多态的作用</h3>
+<ol>
+<li>
+<p>多态数组, 多态数组中不仅可以存储本类类型的对象, 还可以存储子类类型的对象</p>
+<blockquote>
+<p>比如:Person[] persons = new Person[5];<br>
+里面可以存Person对象,也可以存Person子类对象.</p>
+</blockquote>
+</li>
+<li>
+<p>多态参数, 屏蔽子类差异, 写出更加通用的代码</p>
+</li>
+</ol>
+<h2 id="四instanceof-类型检查">四,instanceof 类型检查</h2>
+<pre><code class="language-java">if(p intanceof Person){
+    
+}
+</code></pre>
+<h2 id="五javalangobject类">五,java.lang.Object类</h2>
+<ol>
+<li>Object 类是所有类的基类</li>
+<li>一个类没有继承任何类, 默认extends java.lang.Object</li>
+<li>既然Object类是所有类的父类,那么子类可以继承Object类中所有的方法</li>
+<li>如果对Object类中的方法子类不适用,那么子类可以重写父类方法</li>
+<li>Object类中常用方法
+<ul>
+<li>equals 默认是比较的引用</li>
+<li>toString 打印对象的输出</li>
+</ul>
+</li>
+</ol>
+<h2 id="六-代码块">六, 代码块</h2>
+<p>代码块属于是类的成员之一.</p>
+<h3 id="非静态代码块">非静态代码块</h3>
+<pre><code class="language-java">//非静态代码块
+{
+    
+}
+</code></pre>
+<p>每次创建对象时, 都会被执行, 代码块的执行时间优先于构造器.</p>
+<blockquote>
+<p>作用: 创建每个对象时都需要被执行的代码, 可以写到非静态代码块.(为共性代码进行初始化).</p>
+</blockquote>
+<p>代码块可以有多个, 执行顺序按照依次执行.</p>
+<h3 id="静态代码块">静态代码块</h3>
+<pre><code class="language-java">//静态代码块
+static{
+    
+}
+</code></pre>
+<ul>
+<li>静态代码块,随着类的加载而加载, 只执行一次</li>
+<li>静态代码块的执行优先于非静态代码块</li>
+<li>静态代码块中不能使用非静态成员</li>
+<li>静态代码块可以有多个, 依次向下执行</li>
+</ul>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://tangsongyuanmingqing1.github.io/post/ji-cheng-super-chong-xie-fang-wen-kong-zhi">
+                <h3 class="post-title">
+                  继承, super, 重写, 访问控制
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://tangsongyuanmingqing1.github.io/images/avatar.png?v=1576065325310" class="no-responsive avatar">
+    <div class="text-muted"><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576067917477&di=981af9e2e885994371221c478cfd625d&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1205038546%2C1747959657%26fm%3D214%26gp%3D0.jpg" /></div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/mybatis-kuang-jia-xue-xi-bi-ji">Mybatis框架学习笔记</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/spring-mvc">Spring MVC</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/springaop">Spring AOP</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/spring-di">Spring DI</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/springioc">Spring IOC</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/nei-bu-lei">内部类</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/fan-xing">泛型</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/ji-he">集合</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/java-jie-kou-interface">Java接口(interface)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/chou-xiang-lei">抽象类</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+    </div>
+  </div>
+  <div class="paper">
+    <p>联系方式   |  150 3876 2003</p>
+<p>邮       箱   |  tangsongYMQ715417@163.com</p>
+<p>微       信   |  150 3876 2003</p>
+<p>Q         Q   |  1765706237</p> | <a class="rss" href="https://tangsongyuanmingqing1.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>

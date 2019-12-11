@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8" >
 
-<title>SpringIOC | 唐宋</title>
+<title>Spring IOC | 唐宋</title>
 <meta name="description" content="&lt;img src=&#34;https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1576067917477&amp;di=981af9e2e885994371221c478cfd625d&amp;imgtype=jpg&amp;src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1205038546%2C1747959657%26fm%3D214%26gp%3D0.jpg&#34; /&gt;">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="shortcut icon" href="https://tangsongyuanmingqing1.github.io/favicon.ico?v=1576059795330">
+<link rel="shortcut icon" href="https://tangsongyuanmingqing1.github.io/favicon.ico?v=1576065325310">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
@@ -81,185 +81,264 @@
       <div class="sm-12 md-8 col">
         <div class="paper">
           <article class="article">
-            <h1>SpringIOC</h1>
+            <h1>Spring IOC</h1>
             <p class="article-meta">
               2018-03-11
               
             </p>
             
             <div class="post-content">
-              <h1 id="学习springioc的一些个人总结">学习SpringIOC的一些个人总结</h1>
+              <h1 id="学习spring-ioc的个人笔记">学习Spring IOC的个人笔记</h1>
 <!-- more -->
 <h2 id="ioc容器概念">IOC容器概念</h2>
-<p>​	IoC全称为<strong>Inversion of Control</strong>，意为<strong>控制反转</strong>，是面向对象编程中的一种设计原则，可以用来减低计算机代码之间的耦合度。其中最常见的方式叫做依赖注入，还有一种方式叫“依赖查找”。通过控制反转，对象在被创建的时候，由一个调控系统内所有对象的外界实体将其所依赖的对象的引用传递给它。也可以说，依赖被注入到对象中。</p>
+<p>IOC其实就是一个对象的容器。全称Inversion Of Control 控制反转，核心的作用就是将原来由开发人员来控制的对象管理操作交由Spring来管理。</p>
+<p>SpringIOC不仅帮我们管理了对象的创建，还包括给对象增加了生命周期行为、作用域(单例、非单例)、懒加载。 配合Spring的DI， 更能方便的解决对象属性值注入、对象之间的依赖注入问题。</p>
 <h2 id="ioc容器初始化方式">IOC容器初始化方式</h2>
 <h3 id="classpathxmlapplicationcontext">ClassPathXmlApplicationContext</h3>
-<pre><code class="language-java">public static void main( String[] args ) {
-    ApplicationContext ctx = new ClassPathXmlApplicationContext(&quot;applcationContext.xml&quot;);
-}
-//&quot;applcationContext.xml&quot;为配置文件的名字
-//可以使用通配符*例如：applcation*.xml表示所有以applcation开头的所有配置文件
+<p>该类负责加载类路径下的xml配置文件的方式，去初始化IOC容器上下文，具体使用步骤如下：</p>
+<ol>
+<li>
+<p>编写配置文件</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;
+    
+    &lt;!-- 使用bean标签将对象配置到ioc容器中 --&gt;
+    &lt;bean id=&quot;man&quot; class=&quot;com.lanou3g.bean.Man&quot; /&gt;
+    &lt;bean id=&quot;apple&quot; class=&quot;com.lanou3g.bean.Food&quot; /&gt;
+&lt;/beans&gt;
 </code></pre>
+</li>
+<li>
+<p>加载配置文件，初始化IOC容器</p>
+</li>
+</ol>
+<pre><code class="language-java"> // 加载单个xml配置，初始化上下文
+ ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(&quot;applicationContext1.xml&quot;);
+
+ // 加载多个xml配置，初始化上下文
+ ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(new String[]{&quot;applicationContext1.xml&quot;, &quot;applicationContext2.xml&quot;});
+
+ // 加载当前运行类所在的类路径下所有以application开头的配置文件
+ ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(&quot;appliction*.xml&quot;);
+
+ // 加载工程中所有类路径下所有以application开头的配置文件
+ ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(&quot;classpath*:appliction*.xml&quot;);
+
+ // 加载工程中所有类路径下所有以application或spring开头的配置文件
+ ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(new String[]{&quot;classpath*:appliction*.xml&quot;, &quot;classpath*:spring*.xml&quot;});
+</code></pre>
+<blockquote>
+<p>配置文件路径中可以包含通配符(*)和前缀(classpath*:，代表所有类路径，包括源码类路径和单元测试类路径)</p>
+</blockquote>
+<ol start="3">
+<li>
+<p>从容器中获取对象</p>
+<pre><code class="language-java">// 通过xml中配置的bean的id或name属性的值获取bean, 返回的类型是Object，需要强转成对象真正的类型
+Man man = (Man) cxt.getBean(&quot;man&quot;); 
+// 通过bean的名称获取bean的同时，指定类型 
+Man man1 = cxt.getBean(&quot;man&quot;,Man.class); 
+// 通过类型从容器中获取bean，如果容器中该类型的bean有多于一个，则会报错
+Man man2 = cxt.getBean(Man.class); 
+
+// 调用对象的方法
+man.eat();
+man.play();
+</code></pre>
+</li>
+</ol>
 <h3 id="annotationconfigapplicationcontext">AnnotationConfigApplicationContext</h3>
-<pre><code class="language-java">public static void main( String[] args ) {
-    ApplicationContext ctx = new AnnotationConfigApplicationContext(&quot;applcationContext.xml&quot;);
+<p>加载通过Java注解方式配置的Bean上下文。具体使用步骤如下：</p>
+<ol>
+<li>
+<p>定义配置类</p>
+<pre><code class="language-java">@Configuration	//代表该类是一个bean的配置类，类似于xml配置中的&lt;beans&gt;标签
+public class MyConfiguration {
+
 }
-//&quot;applcationContext.xml&quot;为配置文件的名字
-//可以使用通配符*例如：applcation*.xml表示所有以applcation开头的所有配置文件
 </code></pre>
+<ol>
+<li>
+<p>开启注解支持，配置扫描包路径</p>
+<p>如果是通过ClassPathXmlApplicationContext初始化的上下文，则在xml中添加如下配置：</p>
+<pre><code class="language-xml">&lt;!-- 添加context命名空间 --&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance	xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
+
+&lt;!-- 下面两个配置用于xml和注解配置混合使用时，开启注解扫描支持，并指定扫描的包路径 --&gt;
+&lt;!-- 如果指定了扫描包路径，该配置可省略 --&gt;
+&lt;context:annotation-config /&gt; 
+&lt;context:component-scan base-package=&quot;com.lanou3g.spring&quot; /&gt;
+</code></pre>
+<p>如果是通过AnnotationConfigApplicationContext初始化的上下文，则需要在t通过<code>@Configuration</code>注解标注的配置类上添加 @ComponentScans注解：</p>
+<pre><code class="language-java">@Configuration
+@ComponentScan(basePackages = &quot;com.lanou.spring&quot;) //指定扫描包路径
+public class MyConfiguration {
+
+}
+</code></pre>
+</li>
+<li>
+<p>配置Bean</p>
+<p>通过注解方式有两种方式可以将类的对象交由IOC容器中管理</p>
+<ul>
+<li>
+<p>通过@Component的方式定义</p>
+<pre><code class="language-java">@Component
+public class King {
+}
+</code></pre>
+<blockquote>
+<p>适用于我们自己定义的类，或者我们可以修改源代码的类</p>
+</blockquote>
+</li>
+<li>
+<p>通过@Bean注解定义</p>
+<pre><code class="language-java">public class King {
+}
+
+
+@Configuration
+public class MyApplicationContextConf {
+    @Bean
+    public King king() {
+        return new King();
+    }
+}
+</code></pre>
+<blockquote>
+<p>适用于需要将第三方jar包中的类交由ioc管理，因为我们不能修改jar包中的代码，无法给其添加@Component注解</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>加载配置类，初始化IOC容器</p>
+<pre><code class="language-java">// 加载单个注解配置，初始化上下文
+AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(MyConfiguration.class);
+
+// 加载多个注解配置，初始化上下文
+AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(new Class[]{MyConfiguration1.class, MyConfiguration2.class});
+</code></pre>
+</li>
+<li>
+<p>从容器中获取bean</p>
+<pre><code class="language-java">// 通过xml中配置的bean的id或name属性的值获取bean, 返回的类型是Object，需要强转成对象真正的类型
+Man man = (Man) cxt.getBean(&quot;man&quot;); 
+// 通过bean的名称获取bean的同时，指定类型 
+Man man1 = cxt.getBean(&quot;man&quot;,Man.class); 
+// 通过类型从容器中获取bean，如果容器中该类型的bean有多于一个，则会报错
+Man man2 = cxt.getBean(Man.class); 
+
+// 调用对象的方法
+man.eat();
+man.play();
+</code></pre>
+</li>
+</ol>
+<h2 id="bean初始化方式">Bean初始化方式</h2>
+<h3 id="构造方法方式最常用">构造方法方式（最常用）</h3>
+<pre><code class="language-xml">&lt;bean id=&quot;xx&quot; class=&quot;com.test.StudentDao&quot; /&gt;
+</code></pre>
+<h3 id="静态工厂方法">静态工厂方法</h3>
+<pre><code class="language-xml">&lt;!-- 
+	class：指定的是静态工厂类，而不是将要创建的对象类型
+	factory-method: 指定的是工厂中的静态方法 
+--&gt;
+&lt;bean id=&quot;xx&quot; class=&quot;com.test.StudentDaoFactory&quot; factory-method=&quot;createDao&quot; /&gt;
+</code></pre>
+<h3 id="实例工厂方法">实例工厂方法</h3>
+<pre><code class="language-xml">&lt;!-- 
+	class：指定的是实例工厂类 
+--&gt;
+&lt;bean id=&quot;xxFactory&quot; class=&quot;com.test.StudentDaoFactory&quot; /&gt;
+&lt;!-- 
+	factory-bean：指定的是实例工厂对象
+	factory-method: 指定的是工厂中的实例方法 
+--&gt;
+&lt;bean id=&quot;xx&quot; factory-bean=&quot;xxFactory&quot; factory-method=&quot;createDao&quot; /&gt;
+</code></pre>
+<h2 id="bean的命名">Bean的命名</h2>
+<p>在XML中配置中可以通过<bean>标签上的id、name属性值给一个bean命名，以便在其他地方引用。</p>
+<p>id属性： bean的唯一名称，只允许出现一个值。且同一个IOC容器中不允许出现两个id值一样的bean。</p>
+<p>name属性： 和id类似也是给bean命名。但是name属性的值可以有多个，多个值之间使用英文逗号(,)或者英文分号(;)或者空格符隔开</p>
 <h2 id="bean的作用域">Bean的作用域</h2>
 <ul>
 <li>
-<p>prototype（非单例）</p>
+<p>prototype</p>
+<p>在SpringIOC中prototype scope的意思指的是非单例，就是每次使用该bean的时候都会重新创建一个对象。</p>
+<figure data-type="image" tabindex="1"><img src="https://docs.spring.io/spring/docs/5.2.0.RELEASE/spring-framework-reference/images/prototype.png" alt="原型作用域示意图"></figure>
 </li>
 <li>
-<p>singleton(默认)（单例）</p>
+<p>singleton(默认)</p>
+<p>singleton作用域是IOC中默认的作用域，代表单例。每次使用bean的时候，不会重新创建对象，在整个IOC容器中该类型的对象只有一个。</p>
+<figure data-type="image" tabindex="2"><img src="https://docs.spring.io/spring/docs/5.2.0.RELEASE/spring-framework-reference/images/singleton.png" alt="单例作用域示意图"></figure>
 </li>
 </ul>
-<pre><code class="language-xml">&lt;bean id=&quot;laowang&quot; class=&quot;com.wb.test.Person&quot; scope=&quot;prototype&quot;&gt;
-        &lt;property name=&quot;age&quot; value=&quot;23&quot;/&gt;
-        &lt;property name=&quot;name&quot; value=&quot;唐宋&quot;/&gt;
-        &lt;property name=&quot;sex&quot; value=&quot;男&quot;/&gt;
-        &lt;property name=&quot;hobby&quot; value=&quot;dnf&quot;/&gt;
-&lt;/bean&gt;
-//通过scope设置作用域，不设置的时候为默认值singleton
-</code></pre>
 <h2 id="bean的生命周期">Bean的生命周期</h2>
 <ul>
 <li>
 <p>Singleton Bean的生命周期</p>
-<blockquote>
-<p>容器初始化的时候就会实例化，容器关闭的时候被销毁</p>
-</blockquote>
+<ul>
+<li>初始化时机： 在IOC容器初始化时，就会把配置的所有单例bean实例化。</li>
+<li>销毁时机：在IOC容器销毁时，所有bean的销毁方法会被调用。</li>
+</ul>
 </li>
 <li>
 <p>Prototype Bean的生命周期</p>
-<blockquote>
-<p>使用该bean的时候才会被实例化，容器关闭的时候被销毁</p>
-</blockquote>
+<ul>
+<li>初始化时机： 在实际使用该bean的时候，比如：getBean、获取依赖此bean的其他bean需要使用</li>
+<li>销毁时机： 在IOC容器销毁时。（但是通过destroy-method指定的声明周期方法不会被调用，也就是说Spring不提供prototypebean完整的生命周期管理）</li>
+</ul>
 </li>
 <li>
 <p>如何指定生命周期的回调方法</p>
-<p>xml中的init-method、destroy-method</p>
+<ul>
+<li>xml中的init-method、destroy-method</li>
+<li>注解方式@PostConstrutor、@PreDestroy</li>
+</ul>
+</li>
+<li>
+<p>指定默认的声明周期回调方法</p>
+<ul>
+<li>在xml中，通过在beans标签上添加default-init-method、default-destory-method来指定</li>
+<li>在注解配置中，没有对应的方法可以设置所有bean默认的生命周期回调</li>
+</ul>
 </li>
 </ul>
-<pre><code class="language-java">import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-public class Person {
-    private String name;
-    private String sex;
-    private int age;
-    private String hobby;
-      
-    public void init(){
-        System.out.println(name + &quot;已创建&quot;);
-  
-    }
-    public void destroy(){
-        System.out.println(name + &quot;已销毁&quot;);
-  
-    }
-}
-</code></pre>
-<pre><code class="language-xml">&lt;bean id=&quot;laowang&quot; class=&quot;com.wb.test.Person&quot; init-method=&quot;init&quot; destroy-method=&quot;destroy&quot;&gt;
-        &lt;property name=&quot;age&quot; value=&quot;23&quot;/&gt;
-        &lt;property name=&quot;name&quot; value=&quot;唐宋&quot;/&gt;
-        &lt;property name=&quot;sex&quot; value=&quot;男&quot;/&gt;
-        &lt;property name=&quot;hobby&quot; value=&quot;dnf&quot;/&gt;
-&lt;/bean&gt;
-//init和destroy是person类中的方法名
-</code></pre>
 <h2 id="bean懒加载">Bean懒加载</h2>
 <p>lazy-init属性</p>
 <p>默认是false</p>
-<pre><code class="language-xml">&lt;bean id=&quot;laowang&quot; class=&quot;com.wb.test.Person&quot; lazy-init=&quot;true&quot;&gt;
-        &lt;property name=&quot;age&quot; value=&quot;23&quot;/&gt;
-        &lt;property name=&quot;name&quot; value=&quot;唐宋&quot;/&gt;
-        &lt;property name=&quot;sex&quot; value=&quot;男&quot;/&gt;
-        &lt;property name=&quot;hobby&quot; value=&quot;dnf&quot;/&gt;
-&lt;/bean&gt;
-//当lazy-init属性设置为true是表示为该bean为懒加载，只有在使用该bean的时候才会实例化该bean
-</code></pre>
-<h2 id="bean初始化方式">Bean初始化方式</h2>
-<h3 id="构造方法方式最常用">构造方法方式（最常用）</h3>
-<h3 id="静态工厂方法">静态工厂方法</h3>
-<pre><code class="language-xml">&lt;bean id=&quot;stu&quot; class=&quot;com.lanou.test.StudentGetStatic&quot; factory-method=&quot;studentGet&quot;&gt;    		&lt;constructor-arg name=&quot;name&quot; value=&quot;学生&quot; /&gt;
-&lt;/bean&gt;
-//静态工厂的方法不需要额外创建bean
-</code></pre>
-<pre><code class="language-java">/*
-* 被实例化的类
-* */
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-public class Student {    
-    private String name;    
-    public Student(String name) {        
-        this.name = name;    
-    }    
-}
-</code></pre>
-<pre><code class="language-java">/*
-* 静态工厂类
-* */
-public class StudentGetStatic {    
-    public static Student studentGet(String name){        
-        Student stu = new Student(name);        
-        return stu;    
-    }
-}
-</code></pre>
-<h3 id="实例工厂方法">实例工厂方法</h3>
-<pre><code class="language-xml">&lt;bean id=&quot;studentGet&quot; class=&quot;com.lanou.test.StudentGet&quot; /&gt;
-&lt;bean id=&quot;student&quot; factory-bean=&quot;studentGet&quot; factory-method=&quot;studentGet&quot;&gt;
-    &lt;constructor-arg name=&quot;name&quot; value=&quot;学生&quot; /&gt;
-&lt;/bean&gt;
-//实例化工厂方法需要额外实例化一个bean来调用工厂的方法
-</code></pre>
-<pre><code class="language-java">/*
-* 被实例化的类
-* */
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-public class Student {    
-    private String name;    
-    public Student(String name) {        
-        this.name = name;    
-    }    
-}
-</code></pre>
-<pre><code class="language-java">/*
-* 非静态工厂类
-* */
-public class StudentGetStatic {    
-    public Student studentGet(String name){        
-        Student stu = new Student(name);        
-        return stu;    
-    }
-}
-</code></pre>
+<blockquote>
+<p>懒加载配置主要是针对单例的bean，因为它默认是在容器初始化时就被实例化了。</p>
+</blockquote>
 <h2 id="如何优雅的停止非web-spring应用">如何优雅的停止非Web Spring应用</h2>
-<pre><code class="language-java">public static void main( String[] args ) {    
-    ApplicationContext ctx = new ClassPathXmlApplicationContext(&quot;applcationContext.xml&quot;); 
-    ctx.registerShutdownHook();。
-    //初始化容器的时候调用registerShutdownHook方法就可以优雅的停止    
-}
-</code></pre>
-<!-- more -->
+<p>添加一个shutdown hook。所有派生自ConfigurableApplicationContext接口的实现类都支持此方法</p>
+<pre><code class="language-java">ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext(&quot;xxx.xml&quot;);
+
+ctx.registerShutdownHook(); //注册停止回调</code></pre>
 
             </div>
           </article>
         </div>
         <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://tangsongyuanmingqing1.github.io/post/nei-bu-lei">
+                <h3 class="post-title">
+                  内部类
+                </h3>
+              </a>
+            </div>
           
         </div>
         
@@ -267,7 +346,7 @@ public class StudentGetStatic {
 
       <div class="sm-12 md-4 col sidebar">
   <div class="paper info-container">
-    <img src="https://tangsongyuanmingqing1.github.io/images/avatar.png?v=1576059795330" class="no-responsive avatar">
+    <img src="https://tangsongyuanmingqing1.github.io/images/avatar.png?v=1576065325310" class="no-responsive avatar">
     <div class="text-muted"><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576067917477&di=981af9e2e885994371221c478cfd625d&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1205038546%2C1747959657%26fm%3D214%26gp%3D0.jpg" /></div>
     <div class="social-container">
       
@@ -292,8 +371,70 @@ public class StudentGetStatic {
         
           
             <li>
-              <a href="https://tangsongyuanmingqing1.github.io/post/springioc">SpringIOC</a>
+              <a href="https://tangsongyuanmingqing1.github.io/post/mybatis-kuang-jia-xue-xi-bi-ji">Mybatis框架学习笔记</a>
             </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/spring-mvc">Spring MVC</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/springaop">Spring AOP</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/spring-di">Spring DI</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/springioc">Spring IOC</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/nei-bu-lei">内部类</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/fan-xing">泛型</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/ji-he">集合</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/java-jie-kou-interface">Java接口(interface)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/chou-xiang-lei">抽象类</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
           
         
       </ul>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>抽象类 | 唐宋</title>
+<meta name="description" content="&lt;img src=&#34;https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1576067917477&amp;di=981af9e2e885994371221c478cfd625d&amp;imgtype=jpg&amp;src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1205038546%2C1747959657%26fm%3D214%26gp%3D0.jpg&#34; /&gt;">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://tangsongyuanmingqing1.github.io/favicon.ico?v=1576065325310">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://tangsongyuanmingqing1.github.io/styles/main.css">
+
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://tangsongyuanmingqing1.github.io">唐宋</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                文档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>抽象类</h1>
+            <p class="article-meta">
+              2017-06-25
+              
+            </p>
+            
+            <div class="post-content">
+              <p>学习抽象类的个人总结</p>
+<!-- more -->
+<h3 id="什么是类">什么是类？</h3>
+<p>具有相同特征和行为的事物的统称，称为类。</p>
+<h3 id="类有什么作用">类有什么作用？</h3>
+<p>类的作用是创建对象。</p>
+<h3 id="类里可以包含哪些内容">类里可以包含哪些内容？</h3>
+<ol>
+<li>属性（静态属性，非静态属性）</li>
+<li>方法（静态方法，非静态方法）</li>
+<li>构造器</li>
+<li>代码块（静态代码块，非静态代码块）</li>
+<li>类</li>
+</ol>
+<h3 id="什么是抽象类">什么是抽象类？</h3>
+<p>抽象类和普通的类非常相似。普通类能包含的内容，抽象类都可以包含。</p>
+<p>唯一的不同点就是，<strong>抽象类不能创建对象</strong>。</p>
+<h1 id="如何创建一个抽象类">如何创建一个抽象类？</h1>
+<p>创建抽象类，只需要在创建类的时候，添加一个关键字<strong>abstract</strong>.</p>
+<p>语法格式如下：</p>
+<pre><code class="language-java">public abstract class Shape{
+    ....
+}
+</code></pre>
+<p>抽象类的特点：<strong>不能创建对象，不能创建对象，不能创建对象</strong></p>
+<h3 id="抽象类有什么用">抽象类有什么用？</h3>
+<p>类不就是用来创建对象的吗？抽象类不能创建对象有什么用？</p>
+<p><strong>抽象类的最大价值就是被子类继承</strong></p>
+<p>抽象类可以定义公共的信息，例如 形状类的 周长，面积，边的个数。</p>
+<h3 id="哪些信息写到抽象类里">哪些信息写到抽象类里？</h3>
+<p>需要有某些方法，但是这个类（父类）实现这些方法没有意义，不写方法体还会报错，这样的方法要写在抽象类里，而且这个方法要声明为抽象方法。</p>
+<blockquote>
+<p>一个类中如果有抽象方法， 这个类必须定义为抽象类！</p>
+<p>思考一下为什么要定义成抽象类？</p>
+</blockquote>
+<p>假如包含抽象方法的类不定义成抽象类，那它就是一个普通类，普通类可以创建对象，创建完对象以后，对象可以调用这个类方法。万一调用到了这个抽象方法会怎么样？会报错！为什么会报错，因为这个抽象方法没有方法体。为了避免这个问题，不能让含有抽象方法的类去创建对象。从语法上，怎么样才能让一个类不能创建对象呢？定义成抽象类。</p>
+<h3 id="抽象方法">抽象方法</h3>
+<p>什么是抽象方法？</p>
+<p>一个方法如果你只想声明一下，不想去实现它（本质上不是你不想实现它，而是你不知道应该怎么去实现它，这个时候应该交给子类去实现），这个方法可以定义为抽象方法。</p>
+<p>抽象方法的特点：</p>
+<p>​	只有方法的声明，没有方法体。</p>
+<p>如何定义抽象方法：</p>
+<p>​	在方法的返回值之前添加abstract关键字。</p>
+<p>语法格式如下：</p>
+<pre><code class="language-java">public abstract 返回值类型  方法名(参数列表);
+</code></pre>
+<blockquote>
+<p>一旦一个方法定义为抽象方法，你不能去实现。想实现都不能实现。</p>
+</blockquote>
+<h2 id="abstract-不能和哪些关键字同时出现">abstract 不能和哪些关键字同时出现？</h2>
+<h3 id="private">private</h3>
+<p>abstract不能和private同时出现。</p>
+<p>private修饰的方法是私有的，子类根本就不知道有这个方法。</p>
+<p>abstract修饰的方法是希望子类去实现。</p>
+<h3 id="static">static</h3>
+<p>abstract不能和static同时出现。</p>
+<p>abstract修饰的方法只有声明，没有实现（没有方法体）。</p>
+<p>static 不创建对象，用类名就可以调用。</p>
+<p>虽然抽象类不能创建对象，但是 static修饰的方法可以不用对象去调用，用类名可以直接调用，那调用了一个没有实现的方法会怎么样呢？会报错。怎么办？避免调用，所以说抽象方法不能定义为static。</p>
+<h3 id="final">final</h3>
+<p>abstract不能和final同时出现。</p>
+<p>abstract修饰的方法希望子类去实现的。</p>
+<p>final修饰的方法表示已经是最终实现了，子类不能重写了。</p>
+<h2 id="抽象类的注意事项">抽象类的注意事项</h2>
+<ol>
+<li>如果一个类继承了抽象类，这个类应该实现抽象中定义的全部的抽象方法。例如：Triangle继承了抽象类Shape，要实现Shape中定义的全部抽象方法。</li>
+<li>如果一个类继承了抽象类，但是这个类并没有实现全部的抽象方法，意味着这个类包含抽象方法，那这个类也必须定义为抽象类。它尚未实现的方法教给它的子类去实现。</li>
+</ol>
+<h1 id="核心要点">核心要点</h1>
+<ol>
+<li>抽象方法 只有方法的声明，没有方法体。</li>
+<li>包含抽象方法的类必须定位抽象类。</li>
+<li>抽象类不能创建对象。</li>
+<li>abstract不能和static、final、private中任何一个同时出现。</li>
+</ol>
+<h1 id="测试题">测试题</h1>
+<ol>
+<li>抽象类中可以不包含抽象方法吗？  对的</li>
+<li>抽象方法可以不在抽象类中吗？  不可以</li>
+<li>抽象类可以定义为私有类吗？  不可以    abstract不能和private同时出现</li>
+</ol>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://tangsongyuanmingqing1.github.io/post/static-final-duo-tai-instanceof-object-lei">
+                <h3 class="post-title">
+                  static, final, 多态, instanceof, Object类
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://tangsongyuanmingqing1.github.io/images/avatar.png?v=1576065325310" class="no-responsive avatar">
+    <div class="text-muted"><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576067917477&di=981af9e2e885994371221c478cfd625d&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1205038546%2C1747959657%26fm%3D214%26gp%3D0.jpg" /></div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/mybatis-kuang-jia-xue-xi-bi-ji">Mybatis框架学习笔记</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/spring-mvc">Spring MVC</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/springaop">Spring AOP</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/spring-di">Spring DI</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/springioc">Spring IOC</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/nei-bu-lei">内部类</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/fan-xing">泛型</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/ji-he">集合</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/java-jie-kou-interface">Java接口(interface)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/chou-xiang-lei">抽象类</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+    </div>
+  </div>
+  <div class="paper">
+    <p>联系方式   |  150 3876 2003</p>
+<p>邮       箱   |  tangsongYMQ715417@163.com</p>
+<p>微       信   |  150 3876 2003</p>
+<p>Q         Q   |  1765706237</p> | <a class="rss" href="https://tangsongyuanmingqing1.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>

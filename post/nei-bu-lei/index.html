@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>内部类 | 唐宋</title>
+<meta name="description" content="&lt;img src=&#34;https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1576067917477&amp;di=981af9e2e885994371221c478cfd625d&amp;imgtype=jpg&amp;src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1205038546%2C1747959657%26fm%3D214%26gp%3D0.jpg&#34; /&gt;">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://tangsongyuanmingqing1.github.io/favicon.ico?v=1576065325310">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://tangsongyuanmingqing1.github.io/styles/main.css">
+
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://tangsongyuanmingqing1.github.io">唐宋</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                文档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>内部类</h1>
+            <p class="article-meta">
+              2017-08-09
+              
+            </p>
+            
+            <div class="post-content">
+              <p>学习内部类的个人总结</p>
+<!-- more -->
+<h2 id="任务列表">任务列表</h2>
+<h3 id="1-什么内部类">1. 什么内部类？</h3>
+<p>定义在一个类内部的类，成为内部类。</p>
+<h3 id="2内部类有几种">2.内部类有几种？</h3>
+<p>内部类：成员内部类（普通内部类），局部内部类，匿名内部类，静态内部类。</p>
+<h3 id="3成员内部类">3.成员内部类</h3>
+<h4 id="如何定义一个成员内部类">如何定义一个成员内部类？</h4>
+<p>需求：</p>
+<ol>
+<li>定义一个<strong>Hero</strong>类，包含：name, hp, ap</li>
+<li>在<strong>Hero</strong>中定义一个内部类，叫<strong>BattleScore</strong>，包含：kill，die,  assit</li>
+</ol>
+<pre><code class="language-java">public class Hero {
+	private String name;	//英雄的名字
+	private int hp;			//英雄的血量
+	private int ap;			//英雄的攻击力
+	
+	public class BattleScore{//内部类
+		private int kill;
+		private int die;
+		private int assit;
+		public int getKill() {
+			return kill;
+		}
+		public void setKill(int kill) {
+			this.kill = kill;
+		}
+		public int getDie() {
+			return die;
+		}
+		public void setDie(int die) {
+			this.die = die;
+		}
+		public int getAssit() {
+			return assit;
+		}
+		public void setAssit(int assit) {
+			this.assit = assit;
+		}
+		public BattleScore() {
+			super();
+		}
+		public BattleScore(int kill, int die, int assit) {
+			super();
+			this.kill = kill;
+			this.die = die;
+			this.assit = assit;
+		}
+	}
+
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getHp() {
+		return hp;
+	}
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+	public int getAp() {
+		return ap;
+	}
+	public void setAp(int ap) {
+		this.ap = ap;
+	}
+	public Hero() {
+		super();
+	}
+	public Hero(String name, int hp, int ap) {
+		super();
+		this.name = name;
+		this.hp = hp;
+		this.ap = ap;
+	}
+	@Override
+	public String toString() {
+		return &quot;Hero [name=&quot; + name + &quot;, hp=&quot; + hp + &quot;, ap=&quot; + ap + &quot;]&quot;;
+	}
+	
+}
+</code></pre>
+<p>普通内部类的使用</p>
+<pre><code class="language-java">public class TestInnerClass {
+
+	public static void main(String[] args) {
+		Hero gailun = new Hero(&quot;盖伦&quot;, 500, 70);
+		Hero.BattleScore bs = gailun.new BattleScore(8, 0, 12);
+	}
+}
+</code></pre>
+<p>问题：</p>
+<ol>
+<li>
+<p>内部类的访问修饰符可以有哪些？</p>
+<p>public，protected，private以及默认。选哪个取决于需求。</p>
+</li>
+<li>
+<p>内部类如何创建对象？</p>
+<p>外部类类名.内部类类名  对象名 = 外部类对象.new  内部类类名(实参);</p>
+</li>
+<li>
+<p>为什么要有内部类？</p>
+<p>有些类只是和某些或某个类有关系，为了更好的组织代码，把一个类定义在了另外一个类里。</p>
+</li>
+</ol>
+<blockquote>
+<p>内部类可以直接访问外部类的成员（成员方法和成员属性）。</p>
+</blockquote>
+<pre><code class="language-java">public class Hero {
+	private String name;	//英雄的名字
+	private int hp;			//英雄的血量
+	private int ap;			//英雄的攻击力
+	
+	public class BattleScore{
+		private int kill;
+		private int die;
+		private int assit;
+		
+		public void test() {
+			System.out.println(name);
+		}
+		public void test2() {
+			name = &quot;亚瑟&quot;;
+		}
+		
+		public void test3() {
+			setName(&quot;怪僧&quot;);
+		}
+		
+		public int getKill() {
+			return kill;
+		}
+		public void setKill(int kill) {
+			this.kill = kill;
+		}
+		public int getDie() {
+			return die;
+		}
+		public void setDie(int die) {
+			this.die = die;
+		}
+		public int getAssit() {
+			return assit;
+		}
+		public void setAssit(int assit) {
+			this.assit = assit;
+		}
+		public BattleScore() {
+			super();
+		}
+		public BattleScore(int kill, int die, int assit) {
+			super();
+			this.kill = kill;
+			this.die = die;
+			this.assit = assit;
+		}
+	}
+	
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getHp() {
+		return hp;
+	}
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+	public int getAp() {
+		return ap;
+	}
+	public void setAp(int ap) {
+		this.ap = ap;
+	}
+	public Hero() {
+		super();
+	}
+	public Hero(String name, int hp, int ap) {
+		super();
+		this.name = name;
+		this.hp = hp;
+		this.ap = ap;
+	}
+	@Override
+	public String toString() {
+		return &quot;Hero [name=&quot; + name + &quot;, hp=&quot; + hp + &quot;, ap=&quot; + ap + &quot;]&quot;;
+	}
+	
+}
+</code></pre>
+<pre><code class="language-java">public class TestInnerClass {
+
+	public static void main(String[] args) {
+		Hero gailun = new Hero(&quot;盖伦&quot;, 500, 70);
+		Hero.BattleScore bs = gailun.new BattleScore(8, 0, 12);
+		bs.test3();
+		bs.test();
+	}
+}
+</code></pre>
+<h3 id="4静态内部类">4.静态内部类</h3>
+<h4 id="如何定义静态内部类">如何定义静态内部类</h4>
+<p>需求：</p>
+<ol>
+<li>
+<p>定义一个英雄类<strong>Hero</strong>，包括：name, hp, ap</p>
+</li>
+<li>
+<p>在Hero类内部定义一个静态内部类敌方水晶类<strong>EnemyCrystal</strong>, 包括：hp</p>
+</li>
+</ol>
+<pre><code class="language-java">public class Hero {
+	private String name;	//英雄的名字
+	private int hp;			//英雄的血量
+	private int ap;			//英雄的攻击力
+	
+	public static class EnemyCrystal{
+		private int hp = 10000;
+
+		public int getHp() {
+			return hp;
+		}
+
+		public void setHp(int hp) {
+			this.hp = hp;
+		}
+		
+		public void youWin() {
+			System.out.println(&quot;英雄停止攻击&quot;);
+		}
+	}
+	
+	public Hero() {
+		super();
+	}
+	public Hero(String name, int hp, int ap) {
+		super();
+		this.name = name;
+		this.hp = hp;
+		this.ap = ap;
+	}
+	
+}
+</code></pre>
+<h4 id="如何创建静态内部类对象">如何创建静态内部类对象</h4>
+<p>外部类类名.内部类类名  对象名 = new  外部类类名.内部类类名(实参);</p>
+<pre><code class="language-java">public class Test {
+
+	public static void main(String[] args) {
+		Hero.EnemyCrystal ec = new Hero.EnemyCrystal();
+		
+	}
+}
+</code></pre>
+<p>为什么需要静态内部类？</p>
+<p>它不像普通内部类，普通内部类是一个对象对应一个内部类对象。静态内部类是一个独立的个体。</p>
+<p>拿敌方水晶为例，所有英雄公用一个水晶。地方水晶被摧毁之后，我方英雄都会赢。</p>
+<pre><code class="language-java">package com.lanou.staticinnerclass;
+
+public class Hero {
+	private static boolean gameOver = false;//游戏是否结束
+	private String name;	//英雄的名字
+	private int hp;			//英雄的血量
+	private int ap;			//英雄的攻击力
+	
+	public static class EnemyCrystal{
+		private int hp = 10000;
+
+		public int getHp() {
+			return hp;
+		}
+
+		public void setHp(int hp) {
+			this.hp = hp;
+		}
+		
+		public void youWin() {
+			System.out.println(&quot;英雄停止攻击&quot;);
+			test();
+		}
+	}
+	
+	public void attack() {
+		if(gameOver == true) {
+			System.out.println(&quot;stop&quot;);
+		}else {
+			System.out.println(&quot;正常攻击&quot;);
+		}
+	}
+	
+	public static void test() {
+		gameOver = true;
+	}
+	
+	public Hero() {
+		super();
+	}
+	public Hero(String name, int hp, int ap) {
+		super();
+		this.name = name;
+		this.hp = hp;
+		this.ap = ap;
+	}
+	
+}
+</code></pre>
+<pre><code class="language-java">package com.lanou.staticinnerclass;
+
+public class Test {
+
+	public static void main(String[] args) {
+		Hero.EnemyCrystal ec = new Hero.EnemyCrystal();
+		
+		Hero h1 = new Hero(&quot;盖伦&quot;, 500, 70);
+		Hero h2 = new Hero(&quot;盲僧&quot;, 480, 80);
+		h1.attack();
+		h2.attack();
+		ec.youWin();
+		h1.attack();
+		h2.attack();
+	}
+
+}
+</code></pre>
+<blockquote>
+<p>静态内部类只能访问外部类的静态方法和静态属性。</p>
+</blockquote>
+<p>上述代码模拟的是：水晶被打烂，英雄停止攻击。</p>
+<h3 id="局部类本地类-local-class">局部类（本地类） local class</h3>
+<p>局部变量指的是方法中定义的变量，局部类指的是方法中定义的类。</p>
+<p>局部类的定义:</p>
+<pre><code class="language-java">public class TestLocalClass {
+
+	public static void main(String[] args) {
+		class AA{
+			private int a;
+			public double b;
+			public void test() {
+				
+			}
+			public AA(int a, double b) {
+				super();
+				this.a = a;
+				this.b = b;
+			}
+			
+		}
+		
+		AA a = new AA(100,25.8);
+
+	}
+
+}
+</code></pre>
+<blockquote>
+<p>局部类不能使用public,protected,private等关键字。因为本身是局部，指能作用这个方法，作用不到这个包的其他类里，更作用不到其他包里。</p>
+<p>局部类的声明周期很短，方法一结束，类就消失了。</p>
+</blockquote>
+<h3 id="匿名类">匿名类</h3>
+<p>匿名类是局部类的一种特殊形式。</p>
+<p>匿名：就没名字。</p>
+<p>匿名类：没有名字的类。</p>
+<p>问题：一个类，没有名字怎么创建对象？</p>
+<p>正常创建一个对象的语法格式：类名  对象名 = new 类名(实参);</p>
+<p>现在的问题是没有类名了，如何创建对象。</p>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://tangsongyuanmingqing1.github.io/post/fan-xing">
+                <h3 class="post-title">
+                  泛型
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://tangsongyuanmingqing1.github.io/images/avatar.png?v=1576065325310" class="no-responsive avatar">
+    <div class="text-muted"><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576067917477&di=981af9e2e885994371221c478cfd625d&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1205038546%2C1747959657%26fm%3D214%26gp%3D0.jpg" /></div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/mybatis-kuang-jia-xue-xi-bi-ji">Mybatis框架学习笔记</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/spring-mvc">Spring MVC</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/springaop">Spring AOP</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/spring-di">Spring DI</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/springioc">Spring IOC</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/nei-bu-lei">内部类</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/fan-xing">泛型</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/ji-he">集合</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/java-jie-kou-interface">Java接口(interface)</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://tangsongyuanmingqing1.github.io/post/chou-xiang-lei">抽象类</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+    </div>
+  </div>
+  <div class="paper">
+    <p>联系方式   |  150 3876 2003</p>
+<p>邮       箱   |  tangsongYMQ715417@163.com</p>
+<p>微       信   |  150 3876 2003</p>
+<p>Q         Q   |  1765706237</p> | <a class="rss" href="https://tangsongyuanmingqing1.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>
