@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>文件上传 | 唐宋的个人博客</title>
+<title>Cookie&amp;Session | 唐宋的个人博客</title>
 <meta name="description" content="&lt;img src=&#34;https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1576067917477&amp;di=981af9e2e885994371221c478cfd625d&amp;imgtype=jpg&amp;src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1205038546%2C1747959657%26fm%3D214%26gp%3D0.jpg&#34; /&gt;">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -79,100 +79,121 @@
       <div class="sm-12 md-8 col">
         <div class="paper">
           <article class="article">
-            <h1>文件上传</h1>
+            <h1>Cookie&amp;Session</h1>
             <p class="article-meta">
-              2018-02-22
+              2018-03-02
               
-                <a href="https://tangsongyuanmingqing1.github.io/tag/xIc22-S6w" class="badge warning">
-                  JavaSE
+                <a href="https://tangsongyuanmingqing1.github.io/tag/17j_CC3dY" class="badge secondary">
+                  JavaEE
                 </a>
               
             </p>
             
             <div class="post-content">
-              <p>学习文件上传的个人总结</p>
+              <p>Cookie&amp;Session</p>
 <!-- more -->
-<h2 id="前端页面">前端页面</h2>
-<h3 id="必要条件">必要条件</h3>
-<ol>
-<li>需要有一个form表单</li>
-<li>form表单需要设置以下几个属性：
-<ol>
-<li>action:  提交数据的目的地</li>
-<li>method: 设置post</li>
-<li>enctype: 设置成multipart/form-data</li>
-</ol>
-</li>
-<li>form里需要至少有一个file域： &lt;input type=&quot;file&quot; name=&quot;xxx&quot; /&gt;</li>
-</ol>
-<h2 id="后端技术">后端技术</h2>
-<p>所谓文件上传其实就是用流的方式，将文件从客户的电脑上通过网页中的表单， 以二进制流的方式，流到服务器的过程。</p>
-<p>文件下载就是反过来， 将文件从服务器上通过二进制流的方式流到客户电脑上。</p>
-<h3 id="servlet30上传方式">Servlet3.0上传方式</h3>
-<h4 id="servlet30上传的核心-一个注解-一个接口">Servlet3.0上传的核心： 一个注解、一个接口</h4>
-<p>注解：</p>
-<p>@MultipartConfig： 开启Servlet文件上传功能</p>
-<p>接口：</p>
-<p>javax.servlet.http.Part：  封装了上传的文件相关的所有信息</p>
-<h4 id="具体操作步骤">具体操作步骤</h4>
-<ol>
-<li>新建处理文件上传的Servlet，然后重写doPost方法</li>
-<li>给Servlet添加@MultipartConfig注解，开启文件上传功能</li>
-<li>Part part = request.getPart(&quot;input type='type' name的值&quot;);</li>
-<li>part对象有两个作用：
-<ol>
-<li>可以获取到上传文件的所有信息，比如：文件名、大小、类型、文件流数据</li>
-<li>可以直接将文件写到服务器   part.write(&quot;文件保存的路径&quot;);</li>
-</ol>
-</li>
-</ol>
-<h3 id="apache-commons-fileupload-上传方式">Apache Commons Fileupload 上传方式</h3>
-<h4 id="用fileupload上传的核心就是一个接口-两个类">用fileupload上传的核心就是：一个接口、两个类</h4>
-<p>接口： FileItem</p>
-<p>封装了我们表单中的每个域的数据（可能是普通文本数据，也可能是上传的文件）</p>
-<p>类：</p>
-<p>DiskFileItemFactory：  用于创建文件上传对象的工厂</p>
-<p>ServletFileupload： 文件上传对象</p>
-<h4 id="具体操作步骤-2">具体操作步骤</h4>
-<ol>
-<li>
-<p>需要添加依赖： commons-fileupload.jar、commons-io.jar</p>
-</li>
-<li>
-<p>新建处理文件上传的Servlet，然后重写doPost方法</p>
-</li>
-<li>
-<p>调用ServletFileupload对象的静态方法，判断请求是否是一个文件上传请求</p>
-<pre><code class="language-java">if(!ServletFileupload.isMultipartContent(request)) {
-    // 如果不是multipart请求，代表不是一个有效的文件上传请求， 下面的步骤都可以省略了
+<h2 id="cookie">Cookie</h2>
+<h3 id="cookie是什么-what">Cookie是什么？ （What）</h3>
+<p>Cookie是一项在Web请求中，基于客户端的用于存储数据的技术。</p>
+<h3 id="为什么要用cookiewhy">为什么要用Cookie？（Why)</h3>
+<p>我们知道HTTP协议是一种无状态协议，服务端无法区分每个请求对应的是哪个用户。 Cookie就是为了解决这个问题而生的，它通过在浏览器端存储一些数据，在请求时附加到请求头中，这样服务端一读取请求头就知道了这次请求是哪个用户发起的。</p>
+<h3 id="什么情况下要使用cookiewhen">什么情况下要使用Cookie?(When)</h3>
+<p>Cookie的使用分为在业务程序中显式使用和通过容器隐式使用。</p>
+<ul>
+<li>隐式使用： 首次访问JSP、Servlet时，Servlet容器会自动往响应头中添加一个Cookie(Tomcat中是JSESSIONID)</li>
+<li>显式使用： 当我们有一些安全性要求不高，数据量不大的用户数据需要存储时，可以考虑使用Cookie</li>
+</ul>
+<h3 id="怎么使用cookiehow">怎么使用Cookie?（How)</h3>
+<h4 id="cookie的创建">Cookie的创建</h4>
+<pre><code class="language-java">// 两种方法
+// 1. 构造时将数据传入
+Cookie cookie = new Cookie(&quot;key&quot;, &quot;value&quot;);
+
+// 2. 构造时无参，然后通过set方法设置数据
+Cookie cookie = new Cookie();
+cookie.setName(&quot;key&quot;);
+cookie.setValue(&quot;value&quot;);
+
+
+// 除了核心的数据之外，我们还可以设置一些其他属性
+// 1. 设置过期时间
+cookie.setMaxAge(60);	//单位：秒(60秒后,Cookie会自动删除)
+// 2. 设置Domain
+cookie.setDomain(&quot;www.baidu.com&quot;); // 代表只有访问www.baidu.com这个域名下的请求，才能获取到此Cookie
+cookie.setDomain(&quot;.baidu.com&quot;);	// 代表所有www.baidu.com下的二级域名包括www.baidu.com这个一级域名都可以共享此Cookie（注意这种情况下domain必须以&quot;.&quot;开头）
+// 3. 设置Path 
+cookie.setPath(&quot;/StudentServlet&quot;);	// 一旦设置了Path，那么要获取Cookie，当前的请求地址必须满足Path的规则，否则获取不到此Cookie     http://xxx:port/student/StudentServlet/getstu/3
+</code></pre>
+<h4 id="cookie的添加">Cookie的添加</h4>
+<pre><code class="language-java">// 使用响应对象写入浏览器
+
+reponse.addCookie(cookie); //本质上会在响应中添加一个Set-Cookie响应头。
+</code></pre>
+<h4 id="cookie删除">Cookie删除</h4>
+<pre><code class="language-java">// Cookie没有delete方法
+
+// 我们可以通过设置过期时间为0实现删除
+cookie.setMaxAge(0);
+response.addCookie(cookie);
+</code></pre>
+<h4 id="cookie的修改">Cookie的修改</h4>
+<pre><code class="language-java">// Cookie的修改其实就是覆盖添加
+
+// 具体来说分三步
+// 1. 先获取已有Cookie，
+// 2. 然后修改其中的数据，
+// 3. 最后调用response.addCookie()重新添加到浏览器，浏览器看到Key相同的Cookie会自动更新
+
+</code></pre>
+<h4 id="获取cookie中的数据">获取Cookie中的数据</h4>
+<pre><code class="language-java">// 1. 先通过请求对象获取请求中携带的所有Cookie数组
+Cookie[] cookies = request.getCookies();
+
+// 2. 迭代Cookie数组，寻找要操作的Cookie
+for(Cookie cookie : cookies) {
+    // 根据cookie.getName()判断是否是自己要获取数据的cookie
+	
+    // 3. 找到后，调用cookie.getValue()获取数据
 }
 </code></pre>
-</li>
-<li>
-<p>创建文件上传工厂对象：</p>
-<pre><code class="language-java">DiskFileItemFactory factory = new DiskFileItemFactory();
-// factory.set.... 可以设置相关参数
+<h2 id="session">Session</h2>
+<h3 id="session是什么-what">Session是什么？ （What）</h3>
+<p>Session和Cookie类似，都是用来存储用户信息的。不同于Cookie的是Session是存储在服务器端。他们两者通过JSESSIONID关联起来。</p>
+<h3 id="为什么要用sessionwhy">为什么要用Session？（Why)</h3>
+<p>虽然Cookie已经可以标识出哪个请求是属于哪个用户的。但是不足的是Cookie本身是存储于客户端硬盘上，安全性不高，不适合存储敏感数据，还有Cookie本身能存储的数据很有限（数据大小本身限制、数据类型限制、字符集限制）。而存储在服务端的Session完全没有这些问题。</p>
+<h3 id="什么情况下要使用sessionwhen">什么情况下要使用Session?(When)</h3>
+<p>Session可以用来存储用户的所有信息，理论上所有能在Cookie中存储的数据都可以放到Session中。考虑到Session是基于内存的，如果存储太多不太重要的数据会大大增加服务器端内存压力，一般Session会配合Cookie一起使用。</p>
+<h3 id="怎么使用sessionhow">怎么使用Session?（How)</h3>
+<h4 id="创建session">创建Session</h4>
+<pre><code class="language-java">// Session是由容器自动创建的，我们可以在代码中直接获取Sesssion
+
+HttpSession session = request.getSession();
 </code></pre>
-</li>
-<li>
-<p>创建文件上传对象</p>
-<pre><code class="language-java">ServletFileupload upload = new ServletFileupload(factory);
-// upload.set.... 可以设置相关参数
+<h4 id="往session中存储数据">往Session中存储数据</h4>
+<pre><code class="language-java">session.setAttribute();
 </code></pre>
-</li>
-<li>
-<p>用文件上传对象解析请求对象，然后获取解析后的所有FileItem</p>
-<pre><code class="language-java">List&lt;FileItem&gt; fileItems = upload.parseRequest(request);
+<h4 id="获取session中的数据">获取Session中的数据</h4>
+<pre><code class="language-java">session.getAttribute();
 </code></pre>
-</li>
-<li>
-<p>迭代处理每个FileItem</p>
-<ol>
-<li>文本信息的FileItem获取后进行相关的业务操作</li>
-<li>文件类型的FileItem获取后，调用FileItem.write将文件写到服务器某个目录下。</li>
-</ol>
-</li>
-</ol>
+<h4 id="删除session中的数据">删除Session中的数据</h4>
+<pre><code class="language-java">session.removeAttribute();
+</code></pre>
+<h4 id="修改session中的数据">修改Session中的数据</h4>
+<pre><code class="language-java">// 修改Session中的数据和修改Cookie中的数据类似，都是覆盖添加
+
+// 1. 获取要修改的数据
+Object data = session.getAttribute(&quot;key&quot;);
+
+// 2. 修改数据对应的属性
+data.setXXX();
+
+// 3. 将修改后的数据重新存入Session
+session.setAttribute(&quot;key&quot;, data);
+
+</code></pre>
+<h4 id="强制让session失效">强制让Session失效</h4>
+<pre><code class="language-java">session.invalidate();	//调用后session对象会失效，同时客户端Cookie中的JSESSIONID也会发生变化
+</code></pre>
 
             </div>
           </article>
@@ -183,9 +204,9 @@
               <div class="next">
                 下一篇
               </div>
-              <a href="https://tangsongyuanmingqing1.github.io/post/shu-ju-fen-ye">
+              <a href="https://tangsongyuanmingqing1.github.io/post/wen-jian-shang-chuan">
                 <h3 class="post-title">
-                  数据分页
+                  文件上传
                 </h3>
               </a>
             </div>
@@ -314,11 +335,11 @@
           Mybaits
         </a>
       
-        <a href="https://tangsongyuanmingqing1.github.io/tag/7i8WPTon8" class="badge success">
+        <a href="https://tangsongyuanmingqing1.github.io/tag/7i8WPTon8" class="badge secondary">
           spring
         </a>
       
-        <a href="https://tangsongyuanmingqing1.github.io/tag/17j_CC3dY" class="badge secondary">
+        <a href="https://tangsongyuanmingqing1.github.io/tag/17j_CC3dY" class="badge ">
           JavaEE
         </a>
       

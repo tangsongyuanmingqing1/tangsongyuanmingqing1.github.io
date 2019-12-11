@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://tangsongyuanmingqing1.github.io</id>
     <title>唐宋的个人博客</title>
-    <updated>2019-12-11T12:41:39.967Z</updated>
+    <updated>2019-12-11T12:43:50.598Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://tangsongyuanmingqing1.github.io"/>
     <link rel="self" href="https://tangsongyuanmingqing1.github.io/atom.xml"/>
@@ -66,6 +66,17 @@
 ]]></content>
     </entry>
     <entry>
+        <title type="html"><![CDATA[Cookie&Session]]></title>
+        <id>https://tangsongyuanmingqing1.github.io/post/cookieandsession</id>
+        <link href="https://tangsongyuanmingqing1.github.io/post/cookieandsession">
+        </link>
+        <updated>2018-03-02T12:42:30.000Z</updated>
+        <summary type="html"><![CDATA[<p>Cookie&amp;Session</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Cookie&amp;Session</p>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[文件上传]]></title>
         <id>https://tangsongyuanmingqing1.github.io/post/wen-jian-shang-chuan</id>
         <link href="https://tangsongyuanmingqing1.github.io/post/wen-jian-shang-chuan">
@@ -107,17 +118,6 @@
         <summary type="html"><![CDATA[<p>学习泛型的个人总结</p>
 ]]></summary>
         <content type="html"><![CDATA[<p>学习泛型的个人总结</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[集合]]></title>
-        <id>https://tangsongyuanmingqing1.github.io/post/ji-he</id>
-        <link href="https://tangsongyuanmingqing1.github.io/post/ji-he">
-        </link>
-        <updated>2017-07-13T09:38:38.000Z</updated>
-        <summary type="html"><![CDATA[<p>学习集合的个人总结</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>学习集合的个人总结</p>
 ]]></content>
     </entry>
 </feed>
