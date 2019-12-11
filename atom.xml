@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://tangsongyuanmingqing1.github.io</id>
-    <title>唐宋</title>
-    <updated>2019-12-11T12:20:17.457Z</updated>
+    <title>唐宋的个人博客</title>
+    <updated>2019-12-11T12:41:11.236Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://tangsongyuanmingqing1.github.io"/>
     <link rel="self" href="https://tangsongyuanmingqing1.github.io/atom.xml"/>
     <subtitle>&lt;img src=&quot;https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1576067917477&amp;di=981af9e2e885994371221c478cfd625d&amp;imgtype=jpg&amp;src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1205038546%2C1747959657%26fm%3D214%26gp%3D0.jpg&quot; /&gt;</subtitle>
     <logo>https://tangsongyuanmingqing1.github.io/images/avatar.png</logo>
     <icon>https://tangsongyuanmingqing1.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2019, 唐宋</rights>
+    <rights>All rights reserved 2019, 唐宋的个人博客</rights>
     <entry>
         <title type="html"><![CDATA[Mybatis框架学习笔记]]></title>
         <id>https://tangsongyuanmingqing1.github.io/post/mybatis-kuang-jia-xue-xi-bi-ji</id>
@@ -66,6 +66,28 @@
 ]]></content>
     </entry>
     <entry>
+        <title type="html"><![CDATA[文件上传]]></title>
+        <id>https://tangsongyuanmingqing1.github.io/post/wen-jian-shang-chuan</id>
+        <link href="https://tangsongyuanmingqing1.github.io/post/wen-jian-shang-chuan">
+        </link>
+        <updated>2018-02-22T10:33:06.000Z</updated>
+        <summary type="html"><![CDATA[<p>学习文件上传的个人总结</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>学习文件上传的个人总结</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[数据分页]]></title>
+        <id>https://tangsongyuanmingqing1.github.io/post/shu-ju-fen-ye</id>
+        <link href="https://tangsongyuanmingqing1.github.io/post/shu-ju-fen-ye">
+        </link>
+        <updated>2018-02-10T12:29:32.000Z</updated>
+        <summary type="html"><![CDATA[<p>学习数据分页的个人总结</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>学习数据分页的个人总结</p>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[内部类]]></title>
         <id>https://tangsongyuanmingqing1.github.io/post/nei-bu-lei</id>
         <link href="https://tangsongyuanmingqing1.github.io/post/nei-bu-lei">
@@ -96,28 +118,6 @@
         <summary type="html"><![CDATA[<p>学习集合的个人总结</p>
 ]]></summary>
         <content type="html"><![CDATA[<p>学习集合的个人总结</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Java接口(interface)]]></title>
-        <id>https://tangsongyuanmingqing1.github.io/post/java-jie-kou-interface</id>
-        <link href="https://tangsongyuanmingqing1.github.io/post/java-jie-kou-interface">
-        </link>
-        <updated>2017-07-03T07:34:13.000Z</updated>
-        <summary type="html"><![CDATA[<p>学习Java接口(interface)的个人总结</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>学习Java接口(interface)的个人总结</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[抽象类]]></title>
-        <id>https://tangsongyuanmingqing1.github.io/post/chou-xiang-lei</id>
-        <link href="https://tangsongyuanmingqing1.github.io/post/chou-xiang-lei">
-        </link>
-        <updated>2017-06-25T13:39:16.000Z</updated>
-        <summary type="html"><![CDATA[<p>学习抽象类的个人总结</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>学习抽象类的个人总结</p>
 ]]></content>
     </entry>
 </feed>

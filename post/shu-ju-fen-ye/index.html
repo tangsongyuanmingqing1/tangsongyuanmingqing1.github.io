@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>标签列表 | 唐宋的个人博客</title>
+<title>数据分页 | 唐宋的个人博客</title>
 <meta name="description" content="&lt;img src=&#34;https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1576067917477&amp;di=981af9e2e885994371221c478cfd625d&amp;imgtype=jpg&amp;src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1205038546%2C1747959657%26fm%3D214%26gp%3D0.jpg&#34; /&gt;">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -15,6 +15,12 @@
 <link rel="stylesheet" href="https://tangsongyuanmingqing1.github.io/styles/main.css">
 
 
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
 
 
@@ -23,6 +29,7 @@
 
   </head>
   <body>
+  
     <nav class="navbar border fixed split-nav">
   <div class="nav-brand">
     <h3><a href="https://tangsongyuanmingqing1.github.io">唐宋的个人博客</a></h3>
@@ -71,24 +78,90 @@
     <div id="top" class="row site">
       <div class="sm-12 md-8 col">
         <div class="paper">
-          <h2 class="tag-list-title">标签列表</h2>
-          <div class="row tags-container">
+          <article class="article">
+            <h1>数据分页</h1>
+            <p class="article-meta">
+              2018-02-10
+              
+                <a href="https://tangsongyuanmingqing1.github.io/tag/xIc22-S6w" class="badge ">
+                  JavaSE
+                </a>
+              
+            </p>
             
-              <a href="https://tangsongyuanmingqing1.github.io/tag/ESFD3Nrtm" class="badge ">
-                Mybaits
-              </a>
-            
-              <a href="https://tangsongyuanmingqing1.github.io/tag/7i8WPTon8" class="badge secondary">
-                spring
-              </a>
-            
-              <a href="https://tangsongyuanmingqing1.github.io/tag/xIc22-S6w" class="badge success">
-                JavaSE
-              </a>
-            
-          </div>
+            <div class="post-content">
+              <p>学习数据分页的个人总结</p>
+<!-- more -->
+<h2 id="核心参数">核心参数</h2>
+<ul>
+<li>总数据条数
+<ul>
+<li>来源： 后台自己从数据库中查询而来</li>
+</ul>
+</li>
+<li>每页展示条数(pageSize)
+<ul>
+<li>来源：从前端页面传递过来</li>
+</ul>
+</li>
+<li>总页数（计算得知）
+<ul>
+<li>来源： 根据总条数和每页展示数量计算得来</li>
+</ul>
+</li>
+<li>当前展示的页码（currentPage)
+<ul>
+<li>来源：从前端页面传递过来</li>
+</ul>
+</li>
+<li>每页要展示的数据本身
+<ul>
+<li>来源：后台自己从数据库中查询而来</li>
+</ul>
+</li>
+</ul>
+<h2 id="物理分页">物理分页</h2>
+<h3 id="概述">概述</h3>
+<p>所谓的物理分页其实就是直接通过数据库来实现返回一部分数据。每次只从数据库中查询一页的数据。与之相对应的还有逻辑分页。</p>
+<h3 id="mysql中实现语句">Mysql中实现语句</h3>
+<pre><code class="language-sql">    SELECT * FROM `shop` LIMIT (currentPage-1)*pageSize, pageSize;
+</code></pre>
+<h2 id="逻辑分页">逻辑分页</h2>
+<p>所谓的逻辑分页其实就是通过内存来进行分页。具体来说，首次查询数据时，将所有数据都取出放到内存中，展示其他页的数据时，在内存中实现数据的截取，展示。</p>
+<h2 id="两种分页的对比">两种分页的对比</h2>
+<ol>
+<li>物理分页节约内存空间，效率相比逻辑分页理论上效率低一些。试用场景：数据量大的时候。</li>
+<li>逻辑分页占用空间大，理论上分页性能高一些。试用场景：数据量小，访问用户多。要处理缓存数据同步的问题。</li>
+</ol>
+
+            </div>
+          </article>
         </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://tangsongyuanmingqing1.github.io/post/nei-bu-lei">
+                <h3 class="post-title">
+                  内部类
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+          
+            <div class="paper" data-aos="fade-in">
+              <div id="gitalk-container"></div>
+            </div>
+          
+
+          
+        
       </div>
+
       <div class="sm-12 md-4 col sidebar">
   <div class="paper info-container">
     <img src="https://tangsongyuanmingqing1.github.io/images/avatar.png?v=1576068001489" class="no-responsive avatar">
@@ -195,11 +268,11 @@
     </div>
     <div class="row">
       
-        <a href="https://tangsongyuanmingqing1.github.io/tag/ESFD3Nrtm" class="badge success">
+        <a href="https://tangsongyuanmingqing1.github.io/tag/ESFD3Nrtm" class="badge ">
           Mybaits
         </a>
       
-        <a href="https://tangsongyuanmingqing1.github.io/tag/7i8WPTon8" class="badge success">
+        <a href="https://tangsongyuanmingqing1.github.io/tag/7i8WPTon8" class="badge secondary">
           spring
         </a>
       
@@ -216,7 +289,8 @@
 <p>Q&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspQ&nbsp&nbsp|  1765706237</p> | <a class="rss" href="https://tangsongyuanmingqing1.github.io/atom.xml" target="_blank">RSS</a>
   </div>
 </div>
-  
+
+
     </div>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
@@ -228,6 +302,29 @@ AOS.init();
 hljs.initHighlightingOnLoad()
 
 </script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '809a698b6fca6a0d6dc6',
+        clientSecret: 'bcda78cc30e17669ec10209d6d09e3a24d87f907',
+        repo: 'tangsongyuanmingqing1.github.io',
+        owner: 'tangsongyuanmingqing1',
+        admin: ['tangsongyuanmingqing1'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
 
 
 

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>标签列表 | 唐宋的个人博客</title>
+<title>文件上传 | 唐宋的个人博客</title>
 <meta name="description" content="&lt;img src=&#34;https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1576067917477&amp;di=981af9e2e885994371221c478cfd625d&amp;imgtype=jpg&amp;src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D1205038546%2C1747959657%26fm%3D214%26gp%3D0.jpg&#34; /&gt;">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -15,6 +15,12 @@
 <link rel="stylesheet" href="https://tangsongyuanmingqing1.github.io/styles/main.css">
 
 
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
 
 
@@ -23,6 +29,7 @@
 
   </head>
   <body>
+  
     <nav class="navbar border fixed split-nav">
   <div class="nav-brand">
     <h3><a href="https://tangsongyuanmingqing1.github.io">唐宋的个人博客</a></h3>
@@ -71,24 +78,130 @@
     <div id="top" class="row site">
       <div class="sm-12 md-8 col">
         <div class="paper">
-          <h2 class="tag-list-title">标签列表</h2>
-          <div class="row tags-container">
+          <article class="article">
+            <h1>文件上传</h1>
+            <p class="article-meta">
+              2018-02-22
+              
+                <a href="https://tangsongyuanmingqing1.github.io/tag/xIc22-S6w" class="badge ">
+                  JavaSE
+                </a>
+              
+            </p>
             
-              <a href="https://tangsongyuanmingqing1.github.io/tag/ESFD3Nrtm" class="badge ">
-                Mybaits
-              </a>
-            
-              <a href="https://tangsongyuanmingqing1.github.io/tag/7i8WPTon8" class="badge secondary">
-                spring
-              </a>
-            
-              <a href="https://tangsongyuanmingqing1.github.io/tag/xIc22-S6w" class="badge success">
-                JavaSE
-              </a>
-            
-          </div>
+            <div class="post-content">
+              <p>学习文件上传的个人总结</p>
+<!-- more -->
+<h2 id="前端页面">前端页面</h2>
+<h3 id="必要条件">必要条件</h3>
+<ol>
+<li>需要有一个form表单</li>
+<li>form表单需要设置以下几个属性：
+<ol>
+<li>action:  提交数据的目的地</li>
+<li>method: 设置post</li>
+<li>enctype: 设置成multipart/form-data</li>
+</ol>
+</li>
+<li>form里需要至少有一个file域： &lt;input type=&quot;file&quot; name=&quot;xxx&quot; /&gt;</li>
+</ol>
+<h2 id="后端技术">后端技术</h2>
+<p>所谓文件上传其实就是用流的方式，将文件从客户的电脑上通过网页中的表单， 以二进制流的方式，流到服务器的过程。</p>
+<p>文件下载就是反过来， 将文件从服务器上通过二进制流的方式流到客户电脑上。</p>
+<h3 id="servlet30上传方式">Servlet3.0上传方式</h3>
+<h4 id="servlet30上传的核心-一个注解-一个接口">Servlet3.0上传的核心： 一个注解、一个接口</h4>
+<p>注解：</p>
+<p>@MultipartConfig： 开启Servlet文件上传功能</p>
+<p>接口：</p>
+<p>javax.servlet.http.Part：  封装了上传的文件相关的所有信息</p>
+<h4 id="具体操作步骤">具体操作步骤</h4>
+<ol>
+<li>新建处理文件上传的Servlet，然后重写doPost方法</li>
+<li>给Servlet添加@MultipartConfig注解，开启文件上传功能</li>
+<li>Part part = request.getPart(&quot;input type='type' name的值&quot;);</li>
+<li>part对象有两个作用：
+<ol>
+<li>可以获取到上传文件的所有信息，比如：文件名、大小、类型、文件流数据</li>
+<li>可以直接将文件写到服务器   part.write(&quot;文件保存的路径&quot;);</li>
+</ol>
+</li>
+</ol>
+<h3 id="apache-commons-fileupload-上传方式">Apache Commons Fileupload 上传方式</h3>
+<h4 id="用fileupload上传的核心就是一个接口-两个类">用fileupload上传的核心就是：一个接口、两个类</h4>
+<p>接口： FileItem</p>
+<p>封装了我们表单中的每个域的数据（可能是普通文本数据，也可能是上传的文件）</p>
+<p>类：</p>
+<p>DiskFileItemFactory：  用于创建文件上传对象的工厂</p>
+<p>ServletFileupload： 文件上传对象</p>
+<h4 id="具体操作步骤-2">具体操作步骤</h4>
+<ol>
+<li>
+<p>需要添加依赖： commons-fileupload.jar、commons-io.jar</p>
+</li>
+<li>
+<p>新建处理文件上传的Servlet，然后重写doPost方法</p>
+</li>
+<li>
+<p>调用ServletFileupload对象的静态方法，判断请求是否是一个文件上传请求</p>
+<pre><code class="language-java">if(!ServletFileupload.isMultipartContent(request)) {
+    // 如果不是multipart请求，代表不是一个有效的文件上传请求， 下面的步骤都可以省略了
+}
+</code></pre>
+</li>
+<li>
+<p>创建文件上传工厂对象：</p>
+<pre><code class="language-java">DiskFileItemFactory factory = new DiskFileItemFactory();
+// factory.set.... 可以设置相关参数
+</code></pre>
+</li>
+<li>
+<p>创建文件上传对象</p>
+<pre><code class="language-java">ServletFileupload upload = new ServletFileupload(factory);
+// upload.set.... 可以设置相关参数
+</code></pre>
+</li>
+<li>
+<p>用文件上传对象解析请求对象，然后获取解析后的所有FileItem</p>
+<pre><code class="language-java">List&lt;FileItem&gt; fileItems = upload.parseRequest(request);
+</code></pre>
+</li>
+<li>
+<p>迭代处理每个FileItem</p>
+<ol>
+<li>文本信息的FileItem获取后进行相关的业务操作</li>
+<li>文件类型的FileItem获取后，调用FileItem.write将文件写到服务器某个目录下。</li>
+</ol>
+</li>
+</ol>
+
+            </div>
+          </article>
         </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://tangsongyuanmingqing1.github.io/post/shu-ju-fen-ye">
+                <h3 class="post-title">
+                  数据分页
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+          
+            <div class="paper" data-aos="fade-in">
+              <div id="gitalk-container"></div>
+            </div>
+          
+
+          
+        
       </div>
+
       <div class="sm-12 md-4 col sidebar">
   <div class="paper info-container">
     <img src="https://tangsongyuanmingqing1.github.io/images/avatar.png?v=1576068001489" class="no-responsive avatar">
@@ -199,11 +312,11 @@
           Mybaits
         </a>
       
-        <a href="https://tangsongyuanmingqing1.github.io/tag/7i8WPTon8" class="badge success">
+        <a href="https://tangsongyuanmingqing1.github.io/tag/7i8WPTon8" class="badge ">
           spring
         </a>
       
-        <a href="https://tangsongyuanmingqing1.github.io/tag/xIc22-S6w" class="badge warning">
+        <a href="https://tangsongyuanmingqing1.github.io/tag/xIc22-S6w" class="badge secondary">
           JavaSE
         </a>
       
@@ -216,7 +329,8 @@
 <p>Q&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspQ&nbsp&nbsp|  1765706237</p> | <a class="rss" href="https://tangsongyuanmingqing1.github.io/atom.xml" target="_blank">RSS</a>
   </div>
 </div>
-  
+
+
     </div>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
@@ -228,6 +342,29 @@ AOS.init();
 hljs.initHighlightingOnLoad()
 
 </script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '809a698b6fca6a0d6dc6',
+        clientSecret: 'bcda78cc30e17669ec10209d6d09e3a24d87f907',
+        repo: 'tangsongyuanmingqing1.github.io',
+        owner: 'tangsongyuanmingqing1',
+        admin: ['tangsongyuanmingqing1'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
 
 
 
