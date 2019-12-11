@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://tangsongyuanmingqing1.github.io</id>
     <title>唐宋</title>
-    <updated>2019-12-11T03:46:52.349Z</updated>
+    <updated>2019-12-11T06:02:00.316Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://tangsongyuanmingqing1.github.io"/>
     <link rel="self" href="https://tangsongyuanmingqing1.github.io/atom.xml"/>
@@ -11,35 +11,343 @@
     <icon>https://tangsongyuanmingqing1.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 唐宋</rights>
     <entry>
-        <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://tangsongyuanmingqing1.github.io/post/hello-gridea</id>
-        <link href="https://tangsongyuanmingqing1.github.io/post/hello-gridea">
+        <title type="html"><![CDATA[SpringIOC]]></title>
+        <id>https://tangsongyuanmingqing1.github.io/post/springioc</id>
+        <link href="https://tangsongyuanmingqing1.github.io/post/springioc">
         </link>
-        <updated>2018-12-11T16:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+        <updated>2018-03-11T05:56:39.000Z</updated>
+        <summary type="html"><![CDATA[<h1 id="springioc总结">SpringIOC总结</h1>
+<h2 id="ioc容器概念">IOC容器概念</h2>
+<p>​	IoC全称为<strong>Inversion of Control</strong>，意为<strong>控制反转</strong>，是面向对象编程中的一种设计原则，可以用来减低计算机代码之间的耦合度。其中最常见的方式叫做依赖注入，还有一种方式叫“依赖查找”。通过控制反转，对象在被创建的时候，由一个调控系统内所有对象的外界实体将其所依赖的对象的引用传递给它。也可以说，依赖被注入到对象中。</p>
+<h2 id="ioc容器初始化方式">IOC容器初始化方式</h2>
+<h3 id="classpathxmlapplicationcontext">ClassPathXmlApplicationContext</h3>
+<pre><code class="language-java">public static void main( String[] args ) {
+    ApplicationContext ctx = new ClassPathXmlApplicationContext(&quot;applcationContext.xml&quot;);
+}
+//&quot;applcationContext.xml&quot;为配置文件的名字
+//可以使用通配符*例如：applcation*.xml表示所有以applcation开头的所有配置文件
+</code></pre>
+<h3 id="annotationconfigapplicationcontext">AnnotationConfigApplicationContext</h3>
+<pre><code class="language-java">public static void main( String[] args ) {
+    ApplicationContext ctx = new AnnotationConfigApplicationContext(&quot;applcationContext.xml&quot;);
+}
+//&quot;applcationContext.xml&quot;为配置文件的名字
+//可以使用通配符*例如：applcation*.xml表示所有以applcation开头的所有配置文件
+</code></pre>
+<h2 id="bean的作用域">Bean的作用域</h2>
+<ul>
+<li>
+<p>prototype（非单例）</p>
+</li>
+<li>
+<p>singleton(默认)（单例）</p>
+</li>
+</ul>
+<pre><code class="language-xml">&lt;bean id=&quot;laowang&quot; class=&quot;com.wb.test.Person&quot; scope=&quot;prototype&quot;&gt;
+        &lt;property name=&quot;age&quot; value=&quot;23&quot;/&gt;
+        &lt;property name=&quot;name&quot; value=&quot;唐宋&quot;/&gt;
+        &lt;property name=&quot;sex&quot; value=&quot;男&quot;/&gt;
+        &lt;property name=&quot;hobby&quot; value=&quot;dnf&quot;/&gt;
+&lt;/bean&gt;
+//通过scope设置作用域，不设置的时候为默认值singleton
+</code></pre>
+<h2 id="bean的生命周期">Bean的生命周期</h2>
+<ul>
+<li>
+<p>Singleton Bean的生命周期</p>
+<blockquote>
+<p>容器初始化的时候就会实例化，容器关闭的时候被销毁</p>
+</blockquote>
+</li>
+<li>
+<p>Prototype Bean的生命周期</p>
+<blockquote>
+<p>使用该bean的时候才会被实例化，容器关闭的时候被销毁</p>
+</blockquote>
+</li>
+<li>
+<p>如何指定生命周期的回调方法</p>
+<p>xml中的init-method、destroy-method</p>
+</li>
+</ul>
+<pre><code class="language-java">import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class Person {
+    private String name;
+    private String sex;
+    private int age;
+    private String hobby;
+      
+    public void init(){
+        System.out.println(name + &quot;已创建&quot;);
+  
+    }
+    public void destroy(){
+        System.out.println(name + &quot;已销毁&quot;);
+  
+    }
+}
+</code></pre>
+<pre><code class="language-xml">&lt;bean id=&quot;laowang&quot; class=&quot;com.wb.test.Person&quot; init-method=&quot;init&quot; destroy-method=&quot;destroy&quot;&gt;
+        &lt;property name=&quot;age&quot; value=&quot;23&quot;/&gt;
+        &lt;property name=&quot;name&quot; value=&quot;唐宋&quot;/&gt;
+        &lt;property name=&quot;sex&quot; value=&quot;男&quot;/&gt;
+        &lt;property name=&quot;hobby&quot; value=&quot;dnf&quot;/&gt;
+&lt;/bean&gt;
+//init和destroy是person类中的方法名
+</code></pre>
+<h2 id="bean懒加载">Bean懒加载</h2>
+<p>lazy-init属性</p>
+<p>默认是false</p>
+<pre><code class="language-xml">&lt;bean id=&quot;laowang&quot; class=&quot;com.wb.test.Person&quot; lazy-init=&quot;true&quot;&gt;
+        &lt;property name=&quot;age&quot; value=&quot;23&quot;/&gt;
+        &lt;property name=&quot;name&quot; value=&quot;唐宋&quot;/&gt;
+        &lt;property name=&quot;sex&quot; value=&quot;男&quot;/&gt;
+        &lt;property name=&quot;hobby&quot; value=&quot;dnf&quot;/&gt;
+&lt;/bean&gt;
+//当lazy-init属性设置为true是表示为该bean为懒加载，只有在使用该bean的时候才会实例化该bean
+</code></pre>
+<h2 id="bean初始化方式">Bean初始化方式</h2>
+<h3 id="构造方法方式最常用">构造方法方式（最常用）</h3>
+<h3 id="静态工厂方法">静态工厂方法</h3>
+<pre><code class="language-xml">&lt;bean id=&quot;stu&quot; class=&quot;com.lanou.test.StudentGetStatic&quot; factory-method=&quot;studentGet&quot;&gt;    		&lt;constructor-arg name=&quot;name&quot; value=&quot;学生&quot; /&gt;
+&lt;/bean&gt;
+//静态工厂的方法不需要额外创建bean
+</code></pre>
+<pre><code class="language-java">/*
+* 被实例化的类
+* */
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class Student {    
+    private String name;    
+    public Student(String name) {        
+        this.name = name;    
+    }    
+}
+</code></pre>
+<pre><code class="language-java">/*
+* 静态工厂类
+* */
+public class StudentGetStatic {    
+    public static Student studentGet(String name){        
+        Student stu = new Student(name);        
+        return stu;    
+    }
+}
+</code></pre>
+<h3 id="实例工厂方法">实例工厂方法</h3>
+<pre><code class="language-xml">&lt;bean id=&quot;studentGet&quot; class=&quot;com.lanou.test.StudentGet&quot; /&gt;
+&lt;bean id=&quot;student&quot; factory-bean=&quot;studentGet&quot; factory-method=&quot;studentGet&quot;&gt;
+    &lt;constructor-arg name=&quot;name&quot; value=&quot;学生&quot; /&gt;
+&lt;/bean&gt;
+//实例化工厂方法需要额外实例化一个bean来调用工厂的方法
+</code></pre>
+<pre><code class="language-java">/*
+* 被实例化的类
+* */
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class Student {    
+    private String name;    
+    public Student(String name) {        
+        this.name = name;    
+    }    
+}
+</code></pre>
+<pre><code class="language-java">/*
+* 非静态工厂类
+* */
+public class StudentGetStatic {    
+    public Student studentGet(String name){        
+        Student stu = new Student(name);        
+        return stu;    
+    }
+}
+</code></pre>
+<h2 id="如何优雅的停止非web-spring应用">如何优雅的停止非Web Spring应用</h2>
+<pre><code class="language-java">public static void main( String[] args ) {    
+    ApplicationContext ctx = new ClassPathXmlApplicationContext(&quot;applcationContext.xml&quot;); 
+    ctx.registerShutdownHook();。
+    //初始化容器的时候调用registerShutdownHook方法就可以优雅的停止    
+}
+</code></pre>
 ]]></summary>
-        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+        <content type="html"><![CDATA[<h1 id="springioc总结">SpringIOC总结</h1>
+<h2 id="ioc容器概念">IOC容器概念</h2>
+<p>​	IoC全称为<strong>Inversion of Control</strong>，意为<strong>控制反转</strong>，是面向对象编程中的一种设计原则，可以用来减低计算机代码之间的耦合度。其中最常见的方式叫做依赖注入，还有一种方式叫“依赖查找”。通过控制反转，对象在被创建的时候，由一个调控系统内所有对象的外界实体将其所依赖的对象的引用传递给它。也可以说，依赖被注入到对象中。</p>
+<h2 id="ioc容器初始化方式">IOC容器初始化方式</h2>
+<h3 id="classpathxmlapplicationcontext">ClassPathXmlApplicationContext</h3>
+<pre><code class="language-java">public static void main( String[] args ) {
+    ApplicationContext ctx = new ClassPathXmlApplicationContext(&quot;applcationContext.xml&quot;);
+}
+//&quot;applcationContext.xml&quot;为配置文件的名字
+//可以使用通配符*例如：applcation*.xml表示所有以applcation开头的所有配置文件
+</code></pre>
+<h3 id="annotationconfigapplicationcontext">AnnotationConfigApplicationContext</h3>
+<pre><code class="language-java">public static void main( String[] args ) {
+    ApplicationContext ctx = new AnnotationConfigApplicationContext(&quot;applcationContext.xml&quot;);
+}
+//&quot;applcationContext.xml&quot;为配置文件的名字
+//可以使用通配符*例如：applcation*.xml表示所有以applcation开头的所有配置文件
+</code></pre>
+<h2 id="bean的作用域">Bean的作用域</h2>
+<ul>
+<li>
+<p>prototype（非单例）</p>
+</li>
+<li>
+<p>singleton(默认)（单例）</p>
+</li>
+</ul>
+<pre><code class="language-xml">&lt;bean id=&quot;laowang&quot; class=&quot;com.wb.test.Person&quot; scope=&quot;prototype&quot;&gt;
+        &lt;property name=&quot;age&quot; value=&quot;23&quot;/&gt;
+        &lt;property name=&quot;name&quot; value=&quot;唐宋&quot;/&gt;
+        &lt;property name=&quot;sex&quot; value=&quot;男&quot;/&gt;
+        &lt;property name=&quot;hobby&quot; value=&quot;dnf&quot;/&gt;
+&lt;/bean&gt;
+//通过scope设置作用域，不设置的时候为默认值singleton
+</code></pre>
+<h2 id="bean的生命周期">Bean的生命周期</h2>
+<ul>
+<li>
+<p>Singleton Bean的生命周期</p>
+<blockquote>
+<p>容器初始化的时候就会实例化，容器关闭的时候被销毁</p>
+</blockquote>
+</li>
+<li>
+<p>Prototype Bean的生命周期</p>
+<blockquote>
+<p>使用该bean的时候才会被实例化，容器关闭的时候被销毁</p>
+</blockquote>
+</li>
+<li>
+<p>如何指定生命周期的回调方法</p>
+<p>xml中的init-method、destroy-method</p>
+</li>
+</ul>
+<pre><code class="language-java">import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class Person {
+    private String name;
+    private String sex;
+    private int age;
+    private String hobby;
+      
+    public void init(){
+        System.out.println(name + &quot;已创建&quot;);
+  
+    }
+    public void destroy(){
+        System.out.println(name + &quot;已销毁&quot;);
+  
+    }
+}
+</code></pre>
+<pre><code class="language-xml">&lt;bean id=&quot;laowang&quot; class=&quot;com.wb.test.Person&quot; init-method=&quot;init&quot; destroy-method=&quot;destroy&quot;&gt;
+        &lt;property name=&quot;age&quot; value=&quot;23&quot;/&gt;
+        &lt;property name=&quot;name&quot; value=&quot;唐宋&quot;/&gt;
+        &lt;property name=&quot;sex&quot; value=&quot;男&quot;/&gt;
+        &lt;property name=&quot;hobby&quot; value=&quot;dnf&quot;/&gt;
+&lt;/bean&gt;
+//init和destroy是person类中的方法名
+</code></pre>
+<h2 id="bean懒加载">Bean懒加载</h2>
+<p>lazy-init属性</p>
+<p>默认是false</p>
+<pre><code class="language-xml">&lt;bean id=&quot;laowang&quot; class=&quot;com.wb.test.Person&quot; lazy-init=&quot;true&quot;&gt;
+        &lt;property name=&quot;age&quot; value=&quot;23&quot;/&gt;
+        &lt;property name=&quot;name&quot; value=&quot;唐宋&quot;/&gt;
+        &lt;property name=&quot;sex&quot; value=&quot;男&quot;/&gt;
+        &lt;property name=&quot;hobby&quot; value=&quot;dnf&quot;/&gt;
+&lt;/bean&gt;
+//当lazy-init属性设置为true是表示为该bean为懒加载，只有在使用该bean的时候才会实例化该bean
+</code></pre>
+<h2 id="bean初始化方式">Bean初始化方式</h2>
+<h3 id="构造方法方式最常用">构造方法方式（最常用）</h3>
+<h3 id="静态工厂方法">静态工厂方法</h3>
+<pre><code class="language-xml">&lt;bean id=&quot;stu&quot; class=&quot;com.lanou.test.StudentGetStatic&quot; factory-method=&quot;studentGet&quot;&gt;    		&lt;constructor-arg name=&quot;name&quot; value=&quot;学生&quot; /&gt;
+&lt;/bean&gt;
+//静态工厂的方法不需要额外创建bean
+</code></pre>
+<pre><code class="language-java">/*
+* 被实例化的类
+* */
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class Student {    
+    private String name;    
+    public Student(String name) {        
+        this.name = name;    
+    }    
+}
+</code></pre>
+<pre><code class="language-java">/*
+* 静态工厂类
+* */
+public class StudentGetStatic {    
+    public static Student studentGet(String name){        
+        Student stu = new Student(name);        
+        return stu;    
+    }
+}
+</code></pre>
+<h3 id="实例工厂方法">实例工厂方法</h3>
+<pre><code class="language-xml">&lt;bean id=&quot;studentGet&quot; class=&quot;com.lanou.test.StudentGet&quot; /&gt;
+&lt;bean id=&quot;student&quot; factory-bean=&quot;studentGet&quot; factory-method=&quot;studentGet&quot;&gt;
+    &lt;constructor-arg name=&quot;name&quot; value=&quot;学生&quot; /&gt;
+&lt;/bean&gt;
+//实例化工厂方法需要额外实例化一个bean来调用工厂的方法
+</code></pre>
+<pre><code class="language-java">/*
+* 被实例化的类
+* */
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class Student {    
+    private String name;    
+    public Student(String name) {        
+        this.name = name;    
+    }    
+}
+</code></pre>
+<pre><code class="language-java">/*
+* 非静态工厂类
+* */
+public class StudentGetStatic {    
+    public Student studentGet(String name){        
+        Student stu = new Student(name);        
+        return stu;    
+    }
+}
+</code></pre>
+<h2 id="如何优雅的停止非web-spring应用">如何优雅的停止非Web Spring应用</h2>
+<pre><code class="language-java">public static void main( String[] args ) {    
+    ApplicationContext ctx = new ClassPathXmlApplicationContext(&quot;applcationContext.xml&quot;); 
+    ctx.registerShutdownHook();。
+    //初始化容器的时候调用registerShutdownHook方法就可以优雅的停止    
+}
+</code></pre>
 <!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
 ]]></content>
     </entry>
 </feed>
