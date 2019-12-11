@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://tangsongyuanmingqing1.github.io</id>
-    <title>Gridea</title>
-    <updated>2019-12-11T02:50:07.336Z</updated>
+    <title>唐宋</title>
+    <updated>2019-12-11T03:46:52.349Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://tangsongyuanmingqing1.github.io"/>
     <link rel="self" href="https://tangsongyuanmingqing1.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
+    <subtitle>生命不止，学习不止</subtitle>
     <logo>https://tangsongyuanmingqing1.github.io/images/avatar.png</logo>
     <icon>https://tangsongyuanmingqing1.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2019, Gridea</rights>
+    <rights>All rights reserved 2019, 唐宋</rights>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://tangsongyuanmingqing1.github.io/post/hello-gridea</id>
